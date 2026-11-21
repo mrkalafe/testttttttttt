@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="fa">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>پنل مدیریت | آریامهر گرافی</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Tahoma, sans-serif;
+}
+
+body {
+    background: #f5f5f2;
+    color: #242424;
+}
+
+/* Login */
+
+.login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #17243a;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    padding: 35px;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.login-box h2 {
+    color: #17243a;
+    margin-bottom: 10px;
+}
+
+.login-box p {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 13px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    outline: none;
+    font-size: 13px;
+    direction: ltr;
+}
+
+.login-box input:focus {
+    border-color: #c9a227;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 13px;
+    background: #c9a227;
+    color: #17243a;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-error {
+    color: #d32f2f;
+    font-size: 12px;
+    margin-top: 15px;
+    line-height: 1.8;
+}
+
+/* Dashboard */
+
+#app {
+    display: none;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    height: 100dvh;
+    box-sizing: border-box;
+    background: #17243a;
+    color: white;
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 25px 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #c9a227 #17243a;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #17243a;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #c9a227;
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #e0c15b;
+}
+
+.logo {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #ffffff20;
+    margin-bottom: 25px;
+}
+
+.logo h2 {
+    color: #d6b34c;
+    font-size: 19px;
+}
+
+.logo p {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 8px;
+}
+
+.menu a {
+    display: block;
+    text-decoration: none;
+    color: #d5d9e0;
+    padding: 14px;
+    border-radius: 8px;
+    margin-bottom: 7px;
+    font-size: 13px;
+    transition: .2s;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: #c9a227;
+    color: #17243a;
+}
+
+.main {
+    margin-right: 250px;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    gap: 15px;
+}
+
+.header h1 {
+    font-size: 22px;
+}
+
+.profile {
+    background: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.logout-btn {
+    background: #eee;
+    border: none;
+    padding: 9px 13px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.welcome p {
+    color: #777;
+    font-size: 13px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.card p {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    font-size: 25px;
+    color: #17243a;
+}
+
+.card span {
+    display: block;
+    margin-top: 10px;
+    color: #c9a227;
+    font-size: 11px;
+}
+
+.section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.section-header h3 {
+    font-size: 16px;
+}
+
+.btn {
+    background: #c9a227;
+    color: #17243a;
+    padding: 11px 18px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+}
+
+th, td {
+    padding: 16px 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+}
+
+th {
+    color: #777;
+    background: #fafafa;
+}
+
+.status {
+    background: #e8f5e9;
+    color: #388e3c;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+
+.draft {
+    background: #fff3e0;
+    color: #e68a00;
+}
+
+.empty {
+    text-align: center;
+    color: #888;
+    padding: 25px;
+}
+
+@media(max-width: 1000px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 650px) {
+    .sidebar {
+        width: 65px;
+        padding: 15px 5px;
+    }
+
+    .logo h2 {
+        font-size: 10px;
+    }
+
+    .logo p {
+        display: none;
+    }
+
+    .menu a {
+        font-size: 0;
+        text-align: center;
+        padding: 15px 3px;
+    }
+
+    .main {
+        margin-right: 65px;
+        padding: 15px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        font-size: 16px;
+    }
+
+    .profile {
+        font-size: 10px;
+    }
+
+    .section {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 500px;
+    }
+}
+
+
+/* Full articles management */
+#articlesAdminSection { display:none; }
+#articlesAdminSection .section {
+    background:#fff; padding:22px; border-radius:12px; margin-top:20px;
+}
+.article-tools {
+    display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px;
+}
+.article-tools input, .article-tools select {
+    min-width:180px; flex:1; padding:11px 13px; border:1px solid #ddd;
+    border-radius:8px; background:#fff; color:#17243a; font:inherit; font-size:13px;
+}
+.article-table-wrap { overflow-x:auto; }
+#articlesAdminSection table { width:100%; min-width:760px; border-collapse:collapse; }
+#articlesAdminSection th,#articlesAdminSection td {
+    padding:13px 10px; border-bottom:1px solid #eee; text-align:right;
+    vertical-align:middle; font-size:12px;
+}
+.article-row-actions { display:flex; gap:6px; flex-wrap:wrap; }
+.article-row-actions button {
+    border:0; border-radius:6px; padding:8px 11px; cursor:pointer;
+    font:inherit; font-size:11px;
+}
+.article-edit { background:#e5f1fb; color:#155b89; }
+.article-delete { background:#fde7e7; color:#a32121; }
+.article-count { color:#777; font-size:12px; margin-top:12px; }
+@media(max-width:650px) {
+    .article-tools { flex-direction:column; }
+    .article-tools input,.article-tools select { width:100%; }
+}
+
+/* Discussion moderation */
+.admin-section { display:none; }
+.admin-section .section { background:#fff; padding:22px; border-radius:12px; margin-top:20px; overflow-x:auto; }
+.admin-section table { width:100%; border-collapse:collapse; min-width:760px; }
+.admin-section th,.admin-section td { padding:12px 10px; border-bottom:1px solid #eee; text-align:right; vertical-align:top; font-size:13px; }
+.admin-section th { color:#17243a; background:#f7f7f7; }
+.admin-section .moderation-actions { display:flex; flex-wrap:wrap; gap:6px; }
+.admin-section .moderation-actions button { border:0; border-radius:6px; padding:8px 10px; cursor:pointer; font-size:12px; }
+.admin-section .pin-action { background:#fff2cc; color:#755400; }
+.admin-section .close-action { background:#e5f1fb; color:#155b89; }
+.admin-section .delete-action { background:#fde7e7; color:#a32121; }
+.admin-section .small-muted { color:#777; font-size:12px; line-height:1.8; }
+.admin-section .admin-replies { background:#f7f8fa; padding:12px; border-radius:8px; margin-top:8px; }
+.admin-section .admin-reply { border-bottom:1px solid #e5e5e5; padding:9px 0; }
+.admin-section .admin-reply:last-child { border-bottom:0; }
+.admin-section .reply-delete { border:0; background:#fde7e7; color:#a32121; padding:5px 8px; border-radius:5px; cursor:pointer; margin-right:8px; }
+
+
+/* Royal quotes management */
+#quotesAdminSection { display:none; }
+#quotesAdminSection .section { background:#fff; padding:22px; border-radius:12px; margin-top:20px; }
+.quote-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.quote-form-grid .full { grid-column:1/-1; }
+.quote-form-grid input, .quote-form-grid textarea, .quote-form-grid select {
+    width:100%; box-sizing:border-box; padding:12px; border:1px solid #ddd;
+    border-radius:8px; font:inherit; font-size:13px; background:#fff; color:#17243a;
+}
+.quote-form-grid textarea { min-height:115px; resize:vertical; }
+.quote-form-actions { display:flex; gap:9px; align-items:center; margin-top:14px; flex-wrap:wrap; }
+.quote-form-actions button { border:0; border-radius:7px; padding:11px 17px; cursor:pointer; font:inherit; }
+.quote-save { background:#c9a227; color:#17243a; }
+.quote-cancel { background:#eee; color:#333; }
+.quote-status { font-size:12px; margin-top:10px; }
+.quote-table-wrap { overflow-x:auto; }
+#quotesAdminSection table { width:100%; min-width:700px; border-collapse:collapse; }
+#quotesAdminSection th,#quotesAdminSection td { padding:12px 9px; border-bottom:1px solid #eee; text-align:right; vertical-align:top; font-size:12px; }
+.quote-actions { display:flex; gap:6px; flex-wrap:wrap; }
+.quote-actions button { border:0; border-radius:6px; padding:7px 10px; cursor:pointer; font:inherit; font-size:11px; }
+.quote-edit { background:#e5f1fb; color:#155b89; }
+.quote-delete { background:#fde7e7; color:#a32121; }
+@media(max-width:650px) { .quote-form-grid { grid-template-columns:1fr; } .quote-form-grid .full { grid-column:auto; } }
+
+
+/* Royal books management */
+#booksAdminSection { display:none; }
+#booksAdminSection .section { background:#fff; padding:22px; border-radius:12px; margin-top:20px; }
+.book-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.book-form-grid .full { grid-column:1/-1; }
+.book-form-grid input,.book-form-grid textarea,.book-form-grid select {
+ width:100%; box-sizing:border-box; padding:12px; border:1px solid #ddd;
+ border-radius:8px; font:inherit; font-size:13px; background:#fff; color:#17243a;
+}
+.book-form-grid textarea { min-height:100px; resize:vertical; }
+.book-form-grid input[type=file] { background:#fafafa; }
+.book-actions-row { display:flex; gap:9px; margin-top:14px; flex-wrap:wrap; }
+.book-actions-row button { border:0; border-radius:7px; padding:11px 17px; cursor:pointer; font:inherit; }
+.book-save { background:#c9a227; color:#17243a; }
+.book-cancel { background:#eee; color:#333; }
+.book-note { font-size:12px; line-height:1.9; color:#666; margin-top:8px; }
+.book-message { font-size:12px; margin-top:10px; line-height:1.8; }
+.book-table-wrap { overflow-x:auto; }
+#booksAdminSection table { width:100%; min-width:760px; border-collapse:collapse; }
+#booksAdminSection th,#booksAdminSection td { padding:12px 9px; border-bottom:1px solid #eee; text-align:right; vertical-align:top; font-size:12px; }
+.book-row-actions { display:flex; gap:6px; flex-wrap:wrap; }
+.book-row-actions button { border:0; border-radius:6px; padding:7px 10px; cursor:pointer; font:inherit; font-size:11px; }
+.book-edit { background:#e5f1fb; color:#155b89; }
+.book-delete { background:#fde7e7; color:#a32121; }
+@media(max-width:650px) { .book-form-grid {grid-template-columns:1fr;} .book-form-grid .full {grid-column:auto;} }
+
+
+/* Media archive management */
+.media-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.media-form-grid .full { grid-column:1/-1; }
+.media-form-grid input,.media-form-grid textarea,.media-form-grid select {
+    width:100%; box-sizing:border-box; padding:12px; border:1px solid #ddd;
+    border-radius:8px; font:inherit; font-size:13px; background:#fff; color:#17243a;
+}
+.media-form-grid textarea { min-height:95px; resize:vertical; }
+.media-note { font-size:12px; color:#666; line-height:1.9; margin:7px 0 0; }
+.media-actions-row { display:flex; gap:9px; margin-top:14px; flex-wrap:wrap; }
+.media-actions-row button { border:0; border-radius:7px; padding:11px 17px; cursor:pointer; font:inherit; }
+.media-save { background:#158ffe; color:#fff; }
+.media-cancel { background:#eee; color:#333; }
+.media-message { font-size:12px; margin-top:10px; line-height:1.8; }
+.media-table-wrap { overflow-x:auto; }
+.media-row-actions { display:flex; gap:6px; flex-wrap:wrap; }
+.media-row-actions button { border:0; border-radius:6px; padding:7px 10px; cursor:pointer; font:inherit; font-size:11px; }
+.media-edit { background:#e5f1fb; color:#155b89; }
+.media-delete { background:#fde7e7; color:#a32121; }
+@media(max-width:650px) {
+    .media-form-grid {grid-template-columns:1fr;}
+    .media-form-grid .full {grid-column:auto;}
+}
+
+
+#contactMessagesAdminSection { display:none; }
+#contactMessagesAdminSection .section { background:#fff; padding:22px; border-radius:12px; margin-top:20px; }
+#contactMessagesAdminSection table { width:100%; min-width:900px; border-collapse:collapse; }
+#contactMessagesAdminSection th,#contactMessagesAdminSection td { padding:12px 9px; border-bottom:1px solid #eee; text-align:right; vertical-align:top; font-size:12px; }
+.contact-admin-table-wrap { overflow-x:auto; }
+.contact-admin-message { white-space:pre-wrap; overflow-wrap:anywhere; min-width:220px; max-width:420px; line-height:1.9; }
+.contact-admin-actions { display:flex; flex-wrap:wrap; gap:6px; }
+.contact-admin-actions button { border:0; border-radius:6px; padding:7px 10px; cursor:pointer; font:inherit; font-size:11px; }
+.contact-read-button { background:#e5f1fb; color:#155b89; }
+.contact-delete-button { background:#fde7e7; color:#a32121; }
+.contact-unread { color:#a32121; font-weight:800; }
+.contact-read { color:#388e3c; }
+
+</style>
+</head>
+<body>
+<!-- Login Screen -->
+<div class="login-screen" id="loginScreen">
+<div class="login-box">
+<h2>آریامهر گرافی</h2>
+<p>ورود به پنل مدیریت اختصاصی</p>
+<form id="loginForm">
+<input autocomplete="username" id="email" placeholder="ایمیل مدیر" required="" type="email"/>
+<input autocomplete="current-password" id="password" placeholder="رمز عبور" required="" type="password"/>
+<button id="loginButton" type="submit">
+                ورود به پنل
+            </button>
+</form>
+<div class="login-error" id="loginError"></div>
+</div>
+</div>
+<!-- New Article Modal -->
+<div class="login-screen" id="articleModal" style="display:none; position:fixed; inset:0; z-index:1000; background:#17243acc;">
+<div class="login-box" style="max-width:650px; max-height:90vh; overflow-y:auto; text-align:right;">
+<h2>ایجاد مقاله جدید</h2>
+<p>اطلاعات مقاله را وارد کنید.</p>
+<form id="articleForm">
+<input id="articleTitle" placeholder="عنوان مقاله" required="" type="text"/>
+<input id="articleSlug" placeholder="نشانی اختصاصی انگلیسی (مثلاً tarikh-iran)" required="" type="text"/>
+<input id="articleCategory" placeholder="دسته‌بندی" type="text"/>
+<input id="articleCover" placeholder="لینک تصویر جلد" type="text"/>
+<textarea id="articleDescription" placeholder="توضیحات کوتاه" style="width:100%;height:90px;padding:12px;margin-bottom:13px;border:1px solid #ddd;border-radius:7px;resize:vertical;"></textarea>
+<textarea id="articleContent" placeholder="متن کامل مقاله" required="" style="width:100%;height:220px;padding:12px;margin-bottom:13px;border:1px solid #ddd;border-radius:7px;resize:vertical;"></textarea>
+<select id="articleStatus" style="width:100%;padding:13px;margin-bottom:15px;border:1px solid #ddd;border-radius:7px;">
+<option value="draft">ذخیره به‌صورت پیش‌نویس</option>
+<option value="published">انتشار مقاله</option>
+</select>
+<button class="btn" id="saveArticleButton" type="submit">
+                ذخیره مقاله
+            </button>
+<button class="btn" id="closeArticleModal" style="background:#eee;margin-right:8px;" type="button">
+                انصراف
+            </button>
+<p id="articleMessage" style="margin-top:15px;font-size:12px;"></p>
+</form>
+</div>
+</div>
+<!-- Admin Dashboard -->
+<div id="app">
+<aside class="sidebar">
+<div class="logo">
+<h2>آریامهر گرافی</h2>
+<p>پنل مدیریت اختصاصی</p>
+</div>
+<nav class="menu">
+<a class="active" href="#" id="dashboardNav">▦ داشبورد</a>
+<a href="#" id="discussionNav">☷ مدیریت بحث‌ها</a>
+<a href="#" id="quotesNav">❝ جملات شاهنشاه</a>
+<a href="#" id="booksNav">▤ کتاب‌های شاهنشاه</a>
+
+
+<a href="#" id="contactMessagesNav">✉ صندوق پیام‌ها</a>
+<a href="#" id="articlesNav">▤ مدیریت مقالات</a>
+
+
+
+
+
+</nav>
+</aside>
+<main class="main">
+<header class="header">
+<h1>داشبورد</h1>
+<div class="profile">
+                مدیر سیستم | خوش آمدید
+
+                <button class="logout-btn" id="logoutButton">
+                    خروج
+                </button>
+</div>
+</header>
+<div class="welcome">
+<h2>خوش آمدید!</h2>
+<p>به پنل مدیریت آریامهر گرافی خوش آمدید.</p>
+</div>
+<div class="cards">
+<div class="card">
+<p>کل مطالب</p>
+<h2 id="totalArticles">۰</h2>
+<span>مجموع مطالب ثبت‌شده</span>
+</div>
+<div class="card">
+<p>مطالب منتشرشده</p>
+<h2 id="publishedArticles">۰</h2>
+<span>مطالب قابل مشاهده</span>
+</div>
+<div class="card">
+<p>پیش‌نویس‌ها</p>
+<h2 id="draftArticles">۰</h2>
+<span>مطالب منتشرنشده</span>
+</div>
+<div class="card">
+<p>بازدید امروز</p>
+<h2>---</h2>
+<span>در انتظار راه‌اندازی آمار بازدید</span>
+</div>
+</div>
+<section class="section">
+<div class="section-header">
+<h3>آخرین مطالب</h3>
+<button class="btn" id="newArticleButton">
+                    + ایجاد مطلب جدید
+                </button>
+</div>
+<table>
+<thead>
+<tr>
+<th>عنوان مطلب</th>
+<th>دسته‌بندی</th>
+<th>وضعیت</th>
+<th>تاریخ</th>
+<th>عملیات</th>
+</tr>
+</thead>
+<tbody id="articlesTable">
+<tr>
+<td class="empty" colspan="5">
+                            در حال دریافت اطلاعات...
+                        </td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="admin-section" id="articlesAdminSection">
+<div class="section-header">
+<h3>مدیریت مقالات</h3>
+<button class="btn" id="refreshAdminArticles">به‌روزرسانی</button>
+</div>
+<div class="section">
+<div class="section-header">
+<h3>فهرست تمام مقالات</h3>
+<button class="btn" id="newAdminArticleButton">+ مقاله جدید</button>
+</div>
+<div class="article-tools">
+<input id="articleSearchInput" placeholder="جست‌وجو در عنوان یا نشانی مقاله..." type="search"/>
+<select aria-label="فیلتر وضعیت مقاله" id="articleStatusFilter">
+<option value="all">همه وضعیت‌ها</option>
+<option value="published">منتشرشده‌ها</option>
+<option value="draft">پیش‌نویس‌ها</option>
+</select>
+</div>
+<div class="article-table-wrap">
+<table>
+<thead>
+<tr>
+<th>عنوان مقاله</th>
+<th>نشانی اختصاصی</th>
+<th>دسته‌بندی</th>
+<th>وضعیت</th>
+<th>تاریخ ثبت</th>
+<th>عملیات</th>
+</tr>
+</thead>
+<tbody id="adminArticlesTable">
+<tr><td class="empty" colspan="6">برای دریافت مقالات، صفحه را به‌روزرسانی کنید.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="article-count" id="adminArticlesCount"></p>
+</div>
+</section>
+<section class="admin-section" id="discussionAdminSection">
+<div class="section-header">
+<h3>مدیریت بحث و گفت‌وگو</h3>
+<button class="btn" id="refreshDiscussions">به‌روزرسانی</button>
+</div>
+<p class="small-muted">ایمیل‌ها فقط برای مدیر مجاز نمایش داده می‌شوند.</p>
+<div class="section">
+<table>
+<thead><tr><th>بحث</th><th>نویسنده و ایمیل</th><th>تاریخ</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+<tbody id="discussionsAdminTable"><tr><td colspan="5">در حال دریافت...</td></tr></tbody>
+</table>
+</div>
+</section>
+<section class="admin-section" id="booksAdminSection">
+<div class="section-header">
+<h3>مدیریت کتاب‌های شاهنشاه</h3>
+<button class="btn" id="refreshBooks">به‌روزرسانی</button>
+</div>
+<div class="section">
+<h3 id="bookFormHeading" style="margin:0 0 18px;">ثبت کتاب جدید</h3>
+<form id="bookForm">
+<div class="book-form-grid">
+<div class="full">
+<input id="bookTitle" maxlength="250" placeholder="عنوان کتاب" required="" type="text"/>
+</div>
+<div>
+<input id="bookYear" maxlength="30" placeholder="سال انتشار" type="text"/>
+</div>
+<div>
+<input id="bookPublisher" maxlength="250" placeholder="ناشر" type="text"/>
+</div>
+<div>
+<input id="bookLanguage" maxlength="80" placeholder="زبان کتاب" type="text"/>
+</div>
+<div>
+<input id="bookCover" placeholder="لینک تصویر جلد (اختیاری)" type="url"/>
+</div>
+<div class="full">
+<textarea id="bookDescription" maxlength="10000" placeholder="معرفی و توضیحات کتاب"></textarea>
+</div>
+<div class="full">
+<input id="bookPdfUrl" placeholder="لینک مستقیم فایل PDF کتاب" required="" type="url"/>
+<p class="book-note">فایل PDF باید قبلاً روی یک هاست یا سرویس ذخیره‌سازی دیگر بارگذاری شده باشد. لینک مستقیم فایل را اینجا وارد کن.</p>
+</div>
+<div>
+<select id="bookStatus">
+<option value="draft">ذخیره به‌صورت پیش‌نویس</option>
+<option value="published">انتشار در سایت</option>
+</select>
+</div>
+</div>
+<div class="book-actions-row">
+<button class="book-save" id="bookSaveButton" type="submit">ذخیره کتاب</button>
+<button class="book-cancel" id="bookCancelButton" style="display:none;" type="button">لغو ویرایش</button>
+</div>
+<p class="book-message" id="bookMessage" role="status"></p>
+</form>
+</div>
+<div class="section">
+<div class="section-header"><h3>کتاب‌های ثبت‌شده</h3></div>
+<div class="book-table-wrap">
+<table>
+<thead><tr><th>عنوان</th><th>سال</th><th>زبان</th><th>PDF</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+<tbody id="booksAdminTable"><tr><td colspan="6">در حال دریافت...</td></tr></tbody>
+</table>
+</div>
+</div>
+</section>
+
+
+<section class="admin-section" id="contactMessagesAdminSection">
+<div class="section-header">
+<h3>صندوق پیام‌های تماس</h3>
+<button class="btn" id="refreshContactMessages">به‌روزرسانی</button>
+</div>
+<p class="small-muted">پیام‌ها فقط برای مدیر نمایش داده می‌شوند. برای پاسخ‌گویی می‌توانی از لینک ایمیل استفاده کنی.</p>
+<div class="section">
+<div class="contact-admin-table-wrap">
+<table>
+<thead><tr><th>فرستنده</th><th>ایمیل</th><th>موضوع</th><th>متن پیام</th><th>تاریخ</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+<tbody id="contactMessagesAdminTable"><tr><td colspan="7">برای دریافت پیام‌ها، صندوق را باز کن.</td></tr></tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="admin-section" id="quotesAdminSection">
+<div class="section-header">
+<h3>مدیریت جملات شاهنشاه</h3>
+<button class="btn" id="refreshQuotes">به‌روزرسانی</button>
+</div>
+<div class="section">
+<h3 id="quoteFormHeading" style="margin:0 0 18px;">ثبت جمله جدید</h3>
+<form id="quoteForm">
+<div class="quote-form-grid">
+<div class="full">
+<textarea id="quoteText" maxlength="5000" placeholder="متن جمله شاهنشاه..." required=""></textarea>
+</div>
+<div>
+<input aria-label="تاریخ بیان" id="quoteDate" type="date"/>
+</div>
+<div>
+<input id="quoteOccasion" maxlength="300" placeholder="مناسبت یا محل بیان" type="text"/>
+</div>
+<div class="full">
+<input id="quoteSource" maxlength="1000" placeholder="منبع و مأخذ جمله" type="text"/>
+</div>
+<div class="full">
+<input id="quoteImage" placeholder="لینک تصویر مرتبط (اختیاری)" type="url"/>
+</div>
+<div>
+<select id="quoteStatus">
+<option value="draft">ذخیره به‌صورت پیش‌نویس</option>
+<option value="published">انتشار در سایت</option>
+</select>
+</div>
+</div>
+<div class="quote-form-actions">
+<button class="quote-save" id="quoteSaveButton" type="submit">ذخیره جمله</button>
+<button class="quote-cancel" id="quoteCancelButton" style="display:none;" type="button">لغو ویرایش</button>
+</div>
+<p class="quote-status" id="quoteMessage" role="status"></p>
+</form>
+</div>
+<div class="section" style="margin-top:18px;">
+<div class="section-header">
+<h3>جملات ثبت‌شده</h3>
+</div>
+<div class="quote-table-wrap">
+<table>
+<thead><tr><th>متن جمله</th><th>تاریخ</th><th>منبع</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+<tbody id="quotesAdminTable"><tr><td colspan="5">در حال دریافت...</td></tr></tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+</div>
+<script>
+
+/* Supabase Configuration */
+
+const SUPABASE_URL = "https://dtndnnogjrtufjezwety.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_Z3VyIdDrg5Rdrg9REKRqZw_oUSVG04a";
+
+const db = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* Elements */
+
+const loginScreen = document.getElementById("loginScreen");
+const loginForm = document.getElementById("loginForm");
+const loginError = document.getElementById("loginError");
+const loginButton = document.getElementById("loginButton");
+const app = document.getElementById("app");
+
+
+/* Show Login */
+
+function showLogin(message = "") {
+
+    app.style.display = "none";
+    loginScreen.style.display = "flex";
+
+    loginError.textContent = message;
+
+}
+
+
+/* Show Dashboard */
+
+function showDashboard() {
+
+    loginScreen.style.display = "none";
+    app.style.display = "block";
+
+}
+
+
+/* Check Admin Permission */
+
+async function checkAdmin(user) {
+
+    const { data, error } = await db
+        .from("admin_users")
+        .select("user_id")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+    if (error || !data) {
+
+        await db.auth.signOut();
+
+        showLogin("این حساب اجازه دسترسی به پنل مدیریت را ندارد.");
+
+        return false;
+
+    }
+
+    showDashboard();
+
+    await loadDashboard();
+
+    return true;
+
+}
+
+
+/* Login */
+
+loginForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    loginButton.disabled = true;
+    loginButton.textContent = "در حال ورود...";
+    loginError.textContent = "";
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const { data, error } = await db.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+
+        loginError.textContent = "ایمیل یا رمز عبور صحیح نیست.";
+
+    } else {
+
+        await checkAdmin(data.user);
+
+    }
+
+    loginButton.disabled = false;
+    loginButton.textContent = "ورود به پنل";
+
+});
+
+
+/* Logout */
+
+document.getElementById("logoutButton").addEventListener("click", async function() {
+
+    await db.auth.signOut();
+
+    showLogin();
+
+});
+
+
+/* Dashboard Data */
+
+async function loadDashboard() {
+
+    const { data, error } = await db
+        .from("articles")
+        .select("id, title, category, status, created_at")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+
+        console.error("Database error:", error);
+
+        return;
+
+    }
+
+    const articles = data || [];
+
+    const published = articles.filter(
+        item => item.status === "published"
+    ).length;
+
+    const drafts = articles.filter(
+        item => item.status === "draft"
+    ).length;
+
+
+    document.getElementById("totalArticles").textContent =
+        articles.length.toLocaleString("fa-IR");
+
+    document.getElementById("publishedArticles").textContent =
+        published.toLocaleString("fa-IR");
+
+    document.getElementById("draftArticles").textContent =
+        drafts.toLocaleString("fa-IR");
+
+
+    renderArticles(articles);
+
+}
+
+
+/* Render Articles */
+
+function renderArticles(articles) {
+
+    const table = document.getElementById("articlesTable");
+
+    table.replaceChildren();
+
+    if (articles.length === 0) {
+
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 5;
+        cell.className = "empty";
+        cell.textContent = "هنوز مطلبی ثبت نشده است.";
+
+        row.appendChild(cell);
+        table.appendChild(row);
+
+        return;
+    }
+
+    articles.slice(0, 5).forEach(function(article) {
+
+        const row = document.createElement("tr");
+
+        const title = document.createElement("td");
+        title.textContent = article.title || "بدون عنوان";
+
+        const category = document.createElement("td");
+        category.textContent = article.category || "بدون دسته‌بندی";
+
+        const statusCell = document.createElement("td");
+        const status = document.createElement("span");
+
+        status.className = "status";
+
+        if (article.status === "published") {
+            status.textContent = "منتشرشده";
+        } else {
+            status.textContent = "پیش‌نویس";
+            status.classList.add("draft");
+        }
+
+        statusCell.appendChild(status);
+
+        const date = document.createElement("td");
+
+        date.textContent = article.created_at
+            ? new Date(article.created_at).toLocaleDateString("fa-IR")
+            : "-";
+
+        const actions = document.createElement("td");
+
+        const editButton = document.createElement("button");
+        editButton.textContent = "ویرایش";
+        editButton.className = "btn";
+        editButton.dataset.action = "edit";
+        editButton.dataset.id = article.id;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "حذف";
+        deleteButton.className = "btn";
+        deleteButton.style.background = "#f5dddd";
+        deleteButton.style.marginRight = "5px";
+        deleteButton.dataset.action = "delete";
+        deleteButton.dataset.id = article.id;
+
+        actions.append(editButton, deleteButton);
+
+        row.append(
+            title,
+            category,
+            statusCell,
+            date,
+            actions
+        );
+
+        table.appendChild(row);
+
+    });
+}
+
+    /* Article Management */
+
+    let editingArticleId = null;
+
+
+/* Article Actions */
+
+document.getElementById("articlesTable").addEventListener("click", async function(event) {
+
+    const button = event.target.closest("button[data-action]");
+
+    if (!button) return;
+
+    const articleId = button.dataset.id;
+    const action = button.dataset.action;
+
+    // Edit Article
+
+    if (action === "edit") {
+
+        const { data, error } = await db
+            .from("articles")
+            .select("*")
+            .eq("id", articleId)
+            .single();
+
+        if (error || !data) {
+            alert("دریافت اطلاعات مقاله ناموفق بود.");
+            return;
+        }
+
+        editingArticleId = data.id;
+
+        document.getElementById("articleTitle").value = data.title || "";
+        document.getElementById("articleSlug").value = data.slug || "";
+        document.getElementById("articleCategory").value = data.category || "";
+        document.getElementById("articleCover").value = data.cover_image || "";
+        document.getElementById("articleDescription").value = data.description || "";
+        document.getElementById("articleContent").value = data.content || "";
+        document.getElementById("articleStatus").value = data.status || "draft";
+
+        document.getElementById("articleMessage").textContent = "";
+
+        document.getElementById("saveArticleButton").textContent = "ذخیره تغییرات";
+
+        document.getElementById("articleModal").style.display = "flex";
+
+    }
+
+
+    // Delete Article
+
+    if (action === "delete") {
+
+        const confirmed = confirm("آیا از حذف این مقاله مطمئن هستید؟");
+
+        if (!confirmed) return;
+
+        const { error } = await db
+            .from("articles")
+            .delete()
+            .eq("id", articleId);
+
+        if (error) {
+
+            alert("حذف مقاله ناموفق بود: " + error.message);
+
+        } else {
+
+            alert("مقاله با موفقیت حذف شد.");
+
+            await loadDashboard();
+
+        }
+
+    }
+
+});
+
+const articleModal = document.getElementById("articleModal");
+const articleForm = document.getElementById("articleForm");
+const articleMessage = document.getElementById("articleMessage");
+
+
+/* New Article Button */
+
+document.getElementById("newArticleButton").addEventListener("click", function() {
+
+    // خروج از حالت ویرایش
+    editingArticleId = null;
+
+    // پاک کردن فرم
+    articleForm.reset();
+
+    // پاک کردن پیام قبلی
+    articleMessage.textContent = "";
+
+    // بازگرداندن متن دکمه ذخیره
+    const saveButton = document.getElementById("saveArticleButton");
+    saveButton.disabled = false;
+    saveButton.textContent = "ذخیره مقاله";
+
+    // نمایش فرم
+    articleModal.style.display = "flex";
+
+});
+
+
+// Close Article Form
+
+document.getElementById("closeArticleModal").addEventListener("click", function() {
+
+    articleModal.style.display = "none";
+
+});
+
+
+// Save Article
+
+articleForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const saveButton = document.getElementById("saveArticleButton");
+
+    saveButton.disabled = true;
+    saveButton.textContent = "در حال ذخیره...";
+
+    articleMessage.textContent = "";
+
+    const article = {
+
+        title: document.getElementById("articleTitle").value.trim(),
+
+        slug: document.getElementById("articleSlug").value.trim(),
+
+        category: document.getElementById("articleCategory").value.trim(),
+
+        cover_image: document.getElementById("articleCover").value.trim(),
+
+        description: document.getElementById("articleDescription").value.trim(),
+
+        content: document.getElementById("articleContent").value.trim(),
+
+        status: document.getElementById("articleStatus").value,
+
+        updated_at: new Date().toISOString()
+
+    };
+
+    let error;
+
+    if (editingArticleId !== null) {
+
+        const result = await db
+            .from("articles")
+            .update(article)
+            .eq("id", editingArticleId);
+
+        error = result.error;
+
+    } else {
+
+        const result = await db
+            .from("articles")
+            .insert([article]);
+
+        error = result.error;
+
+    }
+
+    if (error) {
+
+        console.error(error);
+
+        articleMessage.style.color = "#d32f2f";
+
+        if (error.code === "23505") {
+
+            articleMessage.textContent = "این نشانی اختصاصی قبلاً استفاده شده است.";
+
+        } else {
+
+            articleMessage.textContent = "خطا در ذخیره: " + error.message;
+
+        }
+
+    } else {
+
+        articleMessage.style.color = "#388e3c";
+
+        articleMessage.textContent = editingArticleId !== null
+            ? "تغییرات با موفقیت ذخیره شد!"
+            : "مقاله با موفقیت ذخیره شد!";
+
+        editingArticleId = null;
+
+        articleForm.reset();
+
+        saveButton.textContent = "ذخیره مقاله";
+
+        await loadDashboard();
+        if (document.getElementById("articlesAdminSection").style.display === "block") {
+            await loadAdminArticles();
+        }
+
+        setTimeout(function() {
+
+            articleModal.style.display = "none";
+
+        }, 1200);
+
+    }
+
+    saveButton.disabled = false;
+
+});
+
+
+
+
+
+/* Discussion moderation */
+const dashboardNav = document.getElementById("dashboardNav");
+const discussionNav = document.getElementById("discussionNav");
+const quotesNav = document.getElementById("quotesNav");
+const booksNav = document.getElementById("booksNav");
+const articlesNav = document.getElementById("articlesNav");
+const contactMessagesNav = document.getElementById("contactMessagesNav");
+const discussionAdminSection = document.getElementById("discussionAdminSection");
+const quotesAdminSection = document.getElementById("quotesAdminSection");
+const booksAdminSection = document.getElementById("booksAdminSection");
+const articlesAdminSection = document.getElementById("articlesAdminSection");
+const contactMessagesAdminSection = document.getElementById("contactMessagesAdminSection");
+const articlesDashboardSection = document.querySelector("#app main.main > section.section");
+const welcomePanel = document.querySelector("#app main.main > .welcome");
+const dashboardCards = document.querySelector("#app main.main > .cards");
+
+function showAdminArea(which) {
+    const discussions = which === "discussions";
+    const quotes = which === "quotes";
+    const books = which === "books";
+    const articles = which === "articles";
+    const contactMessages = which === "contactMessages";
+    const dashboard = !discussions && !quotes && !books && !articles && !contactMessages;
+
+    articlesDashboardSection.style.display = dashboard ? "block" : "none";
+    welcomePanel.style.display = dashboard ? "block" : "none";
+    dashboardCards.style.display = dashboard ? "grid" : "none";
+    discussionAdminSection.style.display = discussions ? "block" : "none";
+    quotesAdminSection.style.display = quotes ? "block" : "none";
+    booksAdminSection.style.display = books ? "block" : "none";
+    articlesAdminSection.style.display = articles ? "block" : "none";
+    contactMessagesAdminSection.style.display = contactMessages ? "block" : "none";
+
+    dashboardNav.classList.toggle("active", dashboard);
+    discussionNav.classList.toggle("active", discussions);
+    quotesNav.classList.toggle("active", quotes);
+    booksNav.classList.toggle("active", books);
+    articlesNav.classList.toggle("active", articles);
+    contactMessagesNav.classList.toggle("active", contactMessages);
+
+    document.querySelector(".header h1").textContent =
+        discussions ? "مدیریت بحث‌ها" : quotes ? "جملات شاهنشاه" :
+        books ? "کتاب‌های شاهنشاه" : articles ? "مدیریت مقالات" : contactMessages ? "صندوق پیام‌ها" : "داشبورد";
+
+    if (discussions) loadAdminDiscussions();
+    if (quotes) loadRoyalQuotes();
+    if (books) loadRoyalBooks();
+    if (articles) loadAdminArticles();
+    if (contactMessages) loadContactMessages();
+}
+dashboardNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("dashboard"); });
+discussionNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("discussions"); });
+quotesNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("quotes"); });
+booksNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("books"); });
+articlesNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("articles"); });
+contactMessagesNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("contactMessages"); });
+document.getElementById("refreshDiscussions").addEventListener("click", loadAdminDiscussions);
+document.getElementById("refreshQuotes").addEventListener("click", loadRoyalQuotes);
+document.getElementById("refreshBooks").addEventListener("click", loadRoyalBooks);
+document.getElementById("refreshContactMessages").addEventListener("click", loadContactMessages);
+
+
+/* Full articles management */
+let adminArticlesCache = [];
+
+function articleStatusLabel(status) {
+    return status === "published" ? "منتشرشده" : "پیش‌نویس";
+}
+
+function renderAdminArticles() {
+    const table = document.getElementById("adminArticlesTable");
+    const search = document.getElementById("articleSearchInput").value.trim().toLocaleLowerCase();
+    const statusFilter = document.getElementById("articleStatusFilter").value;
+
+    const filtered = adminArticlesCache.filter(function(item) {
+        const matchesSearch = !search ||
+            String(item.title || "").toLocaleLowerCase().includes(search) ||
+            String(item.slug || "").toLocaleLowerCase().includes(search);
+        const matchesStatus = statusFilter === "all" || (item.status || "draft") === statusFilter;
+        return matchesSearch && matchesStatus;
+    });
+
+    table.replaceChildren();
+
+    if (!filtered.length) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 6;
+        cell.className = "empty";
+        cell.textContent = adminArticlesCache.length
+            ? "مقاله‌ای با این جست‌وجو یا فیلتر پیدا نشد."
+            : "هنوز مقاله‌ای ثبت نشده است.";
+        row.appendChild(cell);
+        table.appendChild(row);
+    } else {
+        filtered.forEach(function(item) {
+            const row = document.createElement("tr");
+
+            const title = document.createElement("td");
+            title.textContent = item.title || "بدون عنوان";
+
+            const slug = document.createElement("td");
+            slug.textContent = item.slug || "-";
+            slug.style.direction = "ltr";
+            slug.style.textAlign = "right";
+
+            const category = document.createElement("td");
+            category.textContent = item.category || "بدون دسته‌بندی";
+
+            const statusCell = document.createElement("td");
+            const badge = document.createElement("span");
+            badge.className = "status" + (item.status === "published" ? "" : " draft");
+            badge.textContent = articleStatusLabel(item.status);
+            statusCell.appendChild(badge);
+
+            const date = document.createElement("td");
+            date.textContent = item.created_at
+                ? new Date(item.created_at).toLocaleDateString("fa-IR")
+                : "-";
+
+            const actionsCell = document.createElement("td");
+            const actions = document.createElement("div");
+            actions.className = "article-row-actions";
+
+            const edit = document.createElement("button");
+            edit.type = "button";
+            edit.className = "article-edit";
+            edit.textContent = "ویرایش";
+            edit.dataset.action = "edit";
+            edit.dataset.id = item.id;
+
+            const del = document.createElement("button");
+            del.type = "button";
+            del.className = "article-delete";
+            del.textContent = "حذف";
+            del.dataset.action = "delete";
+            del.dataset.id = item.id;
+
+            actions.append(edit, del);
+            actionsCell.appendChild(actions);
+            row.append(title, slug, category, statusCell, date, actionsCell);
+            table.appendChild(row);
+        });
+    }
+
+    document.getElementById("adminArticlesCount").textContent =
+        "نمایش " + filtered.length.toLocaleString("fa-IR") +
+        " مقاله از " + adminArticlesCache.length.toLocaleString("fa-IR") + " مقاله";
+}
+
+async function loadAdminArticles() {
+    const table = document.getElementById("adminArticlesTable");
+    table.innerHTML = "<tr><td colspan='6' class='empty'>در حال دریافت مقالات...</td></tr>";
+
+    const result = await db.from("articles")
+        .select("id,title,slug,category,status,created_at")
+        .order("created_at", {ascending:false});
+
+    if (result.error) {
+        console.error("Admin articles load error:", result.error);
+        table.innerHTML = "<tr><td colspan='6' class='empty'>دریافت مقالات ناموفق بود: " +
+            escapeAdminText(result.error.message) + "</td></tr>";
+        document.getElementById("adminArticlesCount").textContent = "";
+        return;
+    }
+
+    adminArticlesCache = result.data || [];
+    renderAdminArticles();
+}
+
+async function handleAdminArticleAction(event) {
+    const button = event.target.closest("button[data-action]");
+    if (!button) return;
+
+    const articleId = button.dataset.id;
+    const action = button.dataset.action;
+
+    if (action === "edit") {
+        const result = await db.from("articles")
+            .select("*")
+            .eq("id", articleId)
+            .single();
+
+        if (result.error || !result.data) {
+            alert("دریافت اطلاعات مقاله ناموفق بود.");
+            return;
+        }
+
+        const item = result.data;
+        editingArticleId = item.id;
+        document.getElementById("articleTitle").value = item.title || "";
+        document.getElementById("articleSlug").value = item.slug || "";
+        document.getElementById("articleCategory").value = item.category || "";
+        document.getElementById("articleCover").value = item.cover_image || "";
+        document.getElementById("articleDescription").value = item.description || "";
+        document.getElementById("articleContent").value = item.content || "";
+        document.getElementById("articleStatus").value = item.status || "draft";
+        document.getElementById("articleMessage").textContent = "";
+        document.getElementById("saveArticleButton").textContent = "ذخیره تغییرات";
+        document.getElementById("articleModal").style.display = "flex";
+    }
+
+    if (action === "delete") {
+        if (!confirm("آیا از حذف این مقاله مطمئن هستید؟ این عملیات قابل بازگشت نیست.")) return;
+
+        const result = await db.from("articles").delete().eq("id", articleId);
+        if (result.error) {
+            alert("حذف مقاله ناموفق بود: " + result.error.message);
+            return;
+        }
+
+        await loadDashboard();
+        await loadAdminArticles();
+        alert("مقاله با موفقیت حذف شد.");
+    }
+}
+
+document.getElementById("adminArticlesTable").addEventListener("click", handleAdminArticleAction);
+document.getElementById("refreshAdminArticles").addEventListener("click", loadAdminArticles);
+document.getElementById("articleSearchInput").addEventListener("input", renderAdminArticles);
+document.getElementById("articleStatusFilter").addEventListener("change", renderAdminArticles);
+
+document.getElementById("newAdminArticleButton").addEventListener("click", function() {
+    editingArticleId = null;
+    articleForm.reset();
+    articleMessage.textContent = "";
+    const saveButton = document.getElementById("saveArticleButton");
+    saveButton.disabled = false;
+    saveButton.textContent = "ذخیره مقاله";
+    articleModal.style.display = "flex";
+});
+
+async function loadAdminDiscussions() {
+    const table = document.getElementById("discussionsAdminTable");
+    table.innerHTML = "<tr><td colspan='5'>در حال دریافت بحث‌ها...</td></tr>";
+
+    try {
+        // دریافت جداگانه اطلاعات برای جلوگیری از مشکل تشخیص رابطه‌های تو‌در‌توی Supabase
+        const discussionsResult = await db.from("discussions")
+            .select("id,name,title,body,category,created_at,is_pinned,is_closed")
+            .order("is_pinned", {ascending:false})
+            .order("created_at", {ascending:false});
+
+        if (discussionsResult.error) throw discussionsResult.error;
+        const data = discussionsResult.data || [];
+        if (!data.length) {
+            table.innerHTML = "<tr><td colspan='5'>هنوز بحثی ثبت نشده است.</td></tr>";
+            return;
+        }
+
+        const discussionIds = data.map(item => item.id);
+        const [contactsResult, repliesResult] = await Promise.all([
+            db.from("discussion_contacts").select("discussion_id,email").in("discussion_id", discussionIds),
+            db.from("discussion_replies").select("id,discussion_id,name,body,created_at").in("discussion_id", discussionIds).order("created_at", {ascending:true})
+        ]);
+        if (contactsResult.error) throw contactsResult.error;
+        if (repliesResult.error) throw repliesResult.error;
+
+        const contactsByDiscussion = {};
+        (contactsResult.data || []).forEach(contact => {
+            contactsByDiscussion[String(contact.discussion_id)] = contact.email;
+        });
+
+        const replies = repliesResult.data || [];
+        const replyIds = replies.map(reply => reply.id);
+        let replyContacts = [];
+        if (replyIds.length) {
+            const replyContactsResult = await db.from("reply_contacts")
+                .select("reply_id,email").in("reply_id", replyIds);
+            if (replyContactsResult.error) throw replyContactsResult.error;
+            replyContacts = replyContactsResult.data || [];
+        }
+        const emailByReply = {};
+        replyContacts.forEach(contact => { emailByReply[String(contact.reply_id)] = contact.email; });
+
+        const repliesByDiscussion = {};
+        replies.forEach(reply => {
+            reply.email = emailByReply[String(reply.id)] || "";
+            const key = String(reply.discussion_id);
+            if (!repliesByDiscussion[key]) repliesByDiscussion[key] = [];
+            repliesByDiscussion[key].push(reply);
+        });
+
+        table.replaceChildren();
+        data.forEach(function(item) {
+            const itemReplies = repliesByDiscussion[String(item.id)] || [];
+            const tr = document.createElement("tr");
+            const topic = document.createElement("td");
+            const title = document.createElement("strong"); title.textContent = item.title;
+            const body = document.createElement("div"); body.className = "small-muted"; body.textContent = item.body;
+            topic.append(title, body);
+            const author = document.createElement("td");
+            author.textContent = item.name + " | " + (contactsByDiscussion[String(item.id)] || "ایمیل ثبت نشده");
+            const date = document.createElement("td"); date.textContent = new Date(item.created_at).toLocaleString("fa-IR");
+            const state = document.createElement("td");
+            state.textContent = (item.is_pinned ? "📌 سنجاق‌شده · " : "") + (item.is_closed ? "بسته" : "باز");
+            const actionsCell = document.createElement("td");
+            const actions = document.createElement("div"); actions.className = "moderation-actions";
+            const pin = document.createElement("button"); pin.className = "pin-action";
+            pin.textContent = item.is_pinned ? "برداشتن سنجاق" : "سنجاق‌کردن";
+            pin.onclick = () => updateDiscussion(item.id, {is_pinned:!item.is_pinned});
+            const close = document.createElement("button"); close.className = "close-action";
+            close.textContent = item.is_closed ? "بازکردن پاسخ‌ها" : "بستن پاسخ‌ها";
+            close.onclick = () => updateDiscussion(item.id, {is_closed:!item.is_closed});
+            const repliesButton = document.createElement("button"); repliesButton.className = "btn";
+            repliesButton.textContent = "پاسخ‌ها (" + itemReplies.length + ")";
+            repliesButton.onclick = () => toggleAdminReplies(itemReplies, actionsCell);
+            const del = document.createElement("button"); del.className = "delete-action"; del.textContent = "حذف بحث";
+            del.onclick = () => deleteDiscussion(item.id);
+            actions.append(pin, close, repliesButton, del);
+            actionsCell.append(actions);
+            tr.append(topic, author, date, state, actionsCell);
+            table.append(tr);
+        });
+    } catch (error) {
+        console.error("Admin discussions load error:", error);
+        table.innerHTML = "<tr><td colspan='5'>خطا در دریافت اطلاعات: " + escapeAdminText(error.message || error) + "</td></tr>";
+    }
+}
+function escapeAdminText(value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+async function loadContactMessages() {
+    const table = document.getElementById("contactMessagesAdminTable");
+    table.innerHTML = "<tr><td colspan='7'>در حال دریافت پیام‌ها...</td></tr>";
+    const result = await db.from("contact_messages")
+        .select("id,name,email,subject,message,status,created_at")
+        .order("created_at", {ascending:false});
+    if (result.error) {
+        console.error("Contact messages loading error:", result.error);
+        table.innerHTML = "<tr><td colspan='7'>خطا در دریافت پیام‌ها: " + escapeAdminText(result.error.message) + "</td></tr>";
+        return;
+    }
+    const rows = result.data || [];
+    if (!rows.length) {
+        table.innerHTML = "<tr><td colspan='7'>هنوز پیامی دریافت نشده است.</td></tr>";
+        return;
+    }
+    table.replaceChildren();
+    rows.forEach(function(item) {
+        const tr = document.createElement("tr");
+        const name = document.createElement("td"); name.textContent = item.name || "-";
+        const email = document.createElement("td");
+        const emailLink = document.createElement("a"); emailLink.href = "mailto:" + item.email; emailLink.textContent = item.email || "-"; email.appendChild(emailLink);
+        const subject = document.createElement("td"); subject.textContent = item.subject || "-";
+        const message = document.createElement("td"); message.className = "contact-admin-message"; message.textContent = item.message || "-";
+        const date = document.createElement("td"); date.textContent = item.created_at ? new Date(item.created_at).toLocaleString("fa-IR") : "-";
+        const status = document.createElement("td"); status.className = item.status === "read" ? "contact-read" : "contact-unread"; status.textContent = item.status === "read" ? "خوانده‌شده" : "خوانده‌نشده";
+        const actionsCell = document.createElement("td");
+        const actions = document.createElement("div"); actions.className = "contact-admin-actions";
+        const toggle = document.createElement("button"); toggle.className = "contact-read-button";
+        toggle.textContent = item.status === "read" ? "خوانده‌نشده" : "علامت‌گذاری به‌عنوان خوانده‌شده";
+        toggle.addEventListener("click", function() { updateContactMessage(item.id, {status:item.status === "read" ? "unread" : "read"}); });
+        const del = document.createElement("button"); del.className = "contact-delete-button"; del.textContent = "حذف";
+        del.addEventListener("click", function() { deleteContactMessage(item.id); });
+        actions.append(toggle, del); actionsCell.appendChild(actions);
+        tr.append(name, email, subject, message, date, status, actionsCell);
+        table.appendChild(tr);
+    });
+}
+
+async function updateContactMessage(id, changes) {
+    const result = await db.from("contact_messages").update(changes).eq("id", id);
+    if (result.error) { alert("تغییر وضعیت پیام انجام نشد: " + result.error.message); return; }
+    loadContactMessages();
+}
+
+async function deleteContactMessage(id) {
+    if (!confirm("این پیام حذف شود؟ این عملیات قابل بازگشت نیست.")) return;
+    const result = await db.from("contact_messages").delete().eq("id", id);
+    if (result.error) { alert("حذف پیام انجام نشد: " + result.error.message); return; }
+    loadContactMessages();
+}
+
+async function updateDiscussion(id, changes) {
+    const result = await db.from("discussions").update(changes).eq("id", id);
+    if (result.error) { alert("ذخیره تغییرات انجام نشد: " + result.error.message); return; }
+    loadAdminDiscussions();
+}
+async function deleteDiscussion(id) {
+    if (!confirm("این بحث و تمام پاسخ‌های آن حذف شوند؟ این عملیات قابل بازگشت نیست.")) return;
+    const result = await db.from("discussions").delete().eq("id", id);
+    if (result.error) { alert("حذف بحث انجام نشد: " + result.error.message); return; }
+    loadAdminDiscussions();
+}
+function toggleAdminReplies(replies, host) {
+    const old = host.querySelector(".admin-replies");
+    if (old) { old.remove(); return; }
+    const box = document.createElement("div"); box.className = "admin-replies";
+    if (!replies.length) box.textContent = "هنوز پاسخی ثبت نشده است.";
+    replies.forEach(function(reply) {
+        const row = document.createElement("div"); row.className = "admin-reply";
+        const text = document.createElement("div");
+        text.textContent = reply.name + " · " + new Date(reply.created_at).toLocaleString("fa-IR") + " · " + reply.body;
+        const email = document.createElement("div"); email.className = "small-muted";
+        email.textContent = "ایمیل: " + (reply.email || "ثبت نشده");
+        const del = document.createElement("button"); del.className = "reply-delete"; del.textContent = "حذف پاسخ";
+        del.onclick = async function() {
+            if (!confirm("این پاسخ حذف شود؟")) return;
+            const result = await db.from("discussion_replies").delete().eq("id", reply.id);
+            if (result.error) alert("حذف پاسخ انجام نشد: " + result.error.message);
+            else loadAdminDiscussions();
+        };
+        row.append(text, email, del); box.append(row);
+    });
+    host.append(box);
+}
+
+
+/* Royal quotes management */
+let editingQuoteId = null;
+
+const quoteForm = document.getElementById("quoteForm");
+const quoteMessage = document.getElementById("quoteMessage");
+const quoteSaveButton = document.getElementById("quoteSaveButton");
+const quoteCancelButton = document.getElementById("quoteCancelButton");
+
+function resetQuoteForm() {
+    editingQuoteId = null;
+    quoteForm.reset();
+    document.getElementById("quoteFormHeading").textContent = "ثبت جمله جدید";
+    quoteSaveButton.textContent = "ذخیره جمله";
+    quoteCancelButton.style.display = "none";
+    quoteMessage.textContent = "";
+}
+
+quoteCancelButton.addEventListener("click", resetQuoteForm);
+
+async function loadRoyalQuotes() {
+    const table = document.getElementById("quotesAdminTable");
+    table.innerHTML = "<tr><td colspan='5'>در حال دریافت جملات...</td></tr>";
+
+    const result = await db.from("royal_quotes")
+        .select("id,quote_text,spoken_at,occasion,source,image_url,status,created_at")
+        .order("created_at", {ascending:false});
+
+    if (result.error) {
+        console.error("Royal quotes load error:", result.error);
+        table.innerHTML = "<tr><td colspan='5'>خطا در دریافت جملات: " +
+            escapeAdminText(result.error.message) + "</td></tr>";
+        return;
+    }
+
+    const rows = result.data || [];
+    if (!rows.length) {
+        table.innerHTML = "<tr><td colspan='5'>هنوز جمله‌ای ثبت نشده است.</td></tr>";
+        return;
+    }
+
+    table.replaceChildren();
+    rows.forEach(function(item) {
+        const tr = document.createElement("tr");
+        const textCell = document.createElement("td");
+        textCell.textContent = item.quote_text.length > 180
+            ? item.quote_text.slice(0, 180) + "…" : item.quote_text;
+
+        const dateCell = document.createElement("td");
+        dateCell.textContent = item.spoken_at || "ثبت نشده";
+
+        const sourceCell = document.createElement("td");
+        sourceCell.textContent = item.source || "ثبت نشده";
+
+        const statusCell = document.createElement("td");
+        statusCell.textContent = item.status === "published" ? "منتشرشده" : "پیش‌نویس";
+
+        const actionsCell = document.createElement("td");
+        const actions = document.createElement("div");
+        actions.className = "quote-actions";
+
+        const edit = document.createElement("button");
+        edit.className = "quote-edit";
+        edit.textContent = "ویرایش";
+        edit.addEventListener("click", function() {
+            editingQuoteId = item.id;
+            document.getElementById("quoteText").value = item.quote_text || "";
+            document.getElementById("quoteDate").value = item.spoken_at || "";
+            document.getElementById("quoteOccasion").value = item.occasion || "";
+            document.getElementById("quoteSource").value = item.source || "";
+            document.getElementById("quoteImage").value = item.image_url || "";
+            document.getElementById("quoteStatus").value = item.status || "draft";
+            document.getElementById("quoteFormHeading").textContent = "ویرایش جمله";
+            quoteSaveButton.textContent = "ذخیره تغییرات";
+            quoteCancelButton.style.display = "inline-block";
+            quoteMessage.textContent = "";
+            document.getElementById("quoteText").focus();
+            window.scrollTo({top:0, behavior:"smooth"});
+        });
+
+        const del = document.createElement("button");
+        del.className = "quote-delete";
+        del.textContent = "حذف";
+        del.addEventListener("click", async function() {
+            if (!confirm("این جمله حذف شود؟ این عملیات قابل بازگشت نیست.")) return;
+            const deleteResult = await db.from("royal_quotes").delete().eq("id", item.id);
+            if (deleteResult.error) {
+                alert("حذف جمله انجام نشد: " + deleteResult.error.message);
+                return;
+            }
+            if (editingQuoteId === item.id) resetQuoteForm();
+            loadRoyalQuotes();
+        });
+
+        actions.append(edit, del);
+        actionsCell.append(actions);
+        tr.append(textCell, dateCell, sourceCell, statusCell, actionsCell);
+        table.append(tr);
+    });
+}
+
+quoteForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const quoteText = document.getElementById("quoteText").value.trim();
+    if (!quoteText) {
+        quoteMessage.textContent = "متن جمله را وارد کنید.";
+        return;
+    }
+
+    const payload = {
+        quote_text: quoteText,
+        spoken_at: document.getElementById("quoteDate").value || null,
+        occasion: document.getElementById("quoteOccasion").value.trim() || null,
+        source: document.getElementById("quoteSource").value.trim() || null,
+        image_url: document.getElementById("quoteImage").value.trim() || null,
+        status: document.getElementById("quoteStatus").value,
+        updated_at: new Date().toISOString()
+    };
+
+    quoteSaveButton.disabled = true;
+    quoteMessage.style.color = "#555";
+    quoteMessage.textContent = "در حال ذخیره...";
+
+    let result;
+    if (editingQuoteId) {
+        result = await db.from("royal_quotes").update(payload).eq("id", editingQuoteId);
+    } else {
+        result = await db.from("royal_quotes").insert([payload]);
+    }
+
+    quoteSaveButton.disabled = false;
+
+    if (result.error) {
+        console.error("Royal quote save error:", result.error);
+        quoteMessage.style.color = "#d32f2f";
+        quoteMessage.textContent = "ذخیره انجام نشد: " + result.error.message;
+        return;
+    }
+
+    quoteMessage.style.color = "#388e3c";
+    quoteMessage.textContent = editingQuoteId
+        ? "تغییرات جمله با موفقیت ذخیره شد."
+        : "جمله با موفقیت ثبت شد.";
+
+    resetQuoteForm();
+    quoteMessage.style.color = "#388e3c";
+    quoteMessage.textContent = "عملیات با موفقیت انجام شد.";
+    await loadRoyalQuotes();
+});
+
+
+/* Royal books management */
+let editingBookId = null;
+let editingBookPdfPath = null;
+
+const bookForm = document.getElementById("bookForm");
+const bookMessage = document.getElementById("bookMessage");
+const bookSaveButton = document.getElementById("bookSaveButton");
+const bookCancelButton = document.getElementById("bookCancelButton");
+
+function resetBookForm() {
+    editingBookId = null;
+    editingBookPdfPath = null;
+    bookForm.reset();
+    document.getElementById("bookFormHeading").textContent = "ثبت کتاب جدید";
+    bookSaveButton.textContent = "ذخیره کتاب";
+    bookCancelButton.style.display = "none";
+    bookMessage.textContent = "";
+}
+
+bookCancelButton.addEventListener("click", resetBookForm);
+
+async function loadRoyalBooks() {
+    const table = document.getElementById("booksAdminTable");
+    table.innerHTML = "<tr><td colspan='6'>در حال دریافت کتاب‌ها...</td></tr>";
+
+    const result = await db.from("royal_books")
+        .select("id,title,publication_year,publisher,language,description,cover_image,pdf_path,pdf_file_name,status,created_at")
+        .order("created_at", {ascending:false});
+
+    if (result.error) {
+        console.error("Royal books load error:", result.error);
+        table.innerHTML = "<tr><td colspan='6'>خطا در دریافت کتاب‌ها: " +
+            escapeAdminText(result.error.message) + "</td></tr>";
+        return;
+    }
+
+    const rows = result.data || [];
+    if (!rows.length) {
+        table.innerHTML = "<tr><td colspan='6'>هنوز کتابی ثبت نشده است.</td></tr>";
+        return;
+    }
+
+    table.replaceChildren();
+    rows.forEach(function(item) {
+        const tr = document.createElement("tr");
+        const title = document.createElement("td");
+        title.textContent = item.title || "-";
+        const year = document.createElement("td");
+        year.textContent = item.publication_year || "-";
+        const language = document.createElement("td");
+        language.textContent = item.language || "-";
+        const pdf = document.createElement("td");
+        pdf.textContent = item.pdf_path ? "لینک ثبت شده" : "ندارد";
+        const status = document.createElement("td");
+        status.textContent = item.status === "published" ? "منتشرشده" : "پیش‌نویس";
+
+        const actionsCell = document.createElement("td");
+        const actions = document.createElement("div");
+        actions.className = "book-row-actions";
+
+        const edit = document.createElement("button");
+        edit.className = "book-edit";
+        edit.textContent = "ویرایش";
+        edit.addEventListener("click", function() {
+            editingBookId = item.id;
+            editingBookPdfPath = item.pdf_path || null;
+            document.getElementById("bookTitle").value = item.title || "";
+            document.getElementById("bookYear").value = item.publication_year || "";
+            document.getElementById("bookPublisher").value = item.publisher || "";
+            document.getElementById("bookLanguage").value = item.language || "";
+            document.getElementById("bookCover").value = item.cover_image || "";
+            document.getElementById("bookDescription").value = item.description || "";
+            document.getElementById("bookStatus").value = item.status || "draft";
+            document.getElementById("bookPdfUrl").value = item.pdf_path || "";
+            document.getElementById("bookFormHeading").textContent = "ویرایش کتاب";
+            bookSaveButton.textContent = "ذخیره تغییرات";
+            bookCancelButton.style.display = "inline-block";
+            bookMessage.textContent = item.pdf_file_name
+                ? "PDF فعلی: " + item.pdf_file_name + " | برای جایگزینی، فایل جدید انتخاب کن."
+                : "برای انتشار کتاب باید فایل PDF بارگذاری شود.";
+            document.getElementById("bookTitle").focus();
+            window.scrollTo({top:0, behavior:"smooth"});
+        });
+
+        const del = document.createElement("button");
+        del.className = "book-delete";
+        del.textContent = "حذف";
+        del.addEventListener("click", async function() {
+            if (!confirm("این کتاب و اطلاعات آن حذف شود؟")) return;
+
+            const deleteResult = await db.from("royal_books").delete().eq("id", item.id);
+            if (deleteResult.error) {
+                alert("حذف کتاب انجام نشد: " + deleteResult.error.message);
+                return;
+            }
+
+            if (editingBookId === item.id) resetBookForm();
+            loadRoyalBooks();
+        });
+
+        actions.append(edit, del);
+        actionsCell.append(actions);
+        tr.append(title, year, language, pdf, status, actionsCell);
+        table.append(tr);
+    });
+}
+
+bookForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const title = document.getElementById("bookTitle").value.trim();
+    const pdfUrl = document.getElementById("bookPdfUrl").value.trim();
+    const status = document.getElementById("bookStatus").value;
+
+    if (!title) {
+        bookMessage.textContent = "عنوان کتاب را وارد کن.";
+        return;
+    }
+
+    if (status === "published" && !pdfUrl) {
+        bookMessage.textContent = "برای انتشار کتاب باید لینک مستقیم PDF وارد شود.";
+        return;
+    }
+
+    if (pdfUrl) {
+        try {
+            const parsedUrl = new URL(pdfUrl);
+            if (parsedUrl.protocol !== "https:" && parsedUrl.protocol !== "http:") {
+                throw new Error("invalid protocol");
+            }
+        } catch (error) {
+            bookMessage.textContent = "لینک PDF معتبر نیست. یک آدرس کامل با https:// وارد کن.";
+            return;
+        }
+    }
+
+    bookSaveButton.disabled = true;
+    bookMessage.style.color = "#555";
+    bookMessage.textContent = "در حال ذخیره اطلاعات کتاب...";
+
+    const payload = {
+        title: title,
+        publication_year: document.getElementById("bookYear").value.trim() || null,
+        publisher: document.getElementById("bookPublisher").value.trim() || null,
+        language: document.getElementById("bookLanguage").value.trim() || null,
+        cover_image: document.getElementById("bookCover").value.trim() || null,
+        description: document.getElementById("bookDescription").value.trim() || null,
+        pdf_path: pdfUrl || null,
+        pdf_file_name: null,
+        status: status,
+        updated_at: new Date().toISOString()
+    };
+
+    let saveResult;
+    if (editingBookId) {
+        saveResult = await db.from("royal_books").update(payload).eq("id", editingBookId);
+    } else {
+        saveResult = await db.from("royal_books").insert([payload]);
+    }
+
+    bookSaveButton.disabled = false;
+
+    if (saveResult.error) {
+        console.error("Royal book save error:", saveResult.error);
+        bookMessage.style.color = "#d32f2f";
+        bookMessage.textContent = "ذخیره اطلاعات کتاب ناموفق بود: " + saveResult.error.message;
+        return;
+    }
+
+    resetBookForm();
+    bookMessage.style.color = "#388e3c";
+    bookMessage.textContent = "کتاب با موفقیت ذخیره شد.";
+    await loadRoyalBooks();
+});
+
+
+/* Archive images management: URL-only */
+let editingImageId = null;
+const imageForm = document.getElementById("imageForm");
+const imageMessage = document.getElementById("imageMessage");
+const imageSaveButton = document.getElementById("imageSaveButton");
+const imageCancelButton = document.getElementById("imageCancelButton");
+
+function resetImageForm() {
+    editingImageId = null;
+    imageForm.reset();
+    document.getElementById("imageFormHeading").textContent = "ثبت تصویر جدید";
+    imageSaveButton.textContent = "ذخیره تصویر";
+    imageCancelButton.style.display = "none";
+    imageMessage.textContent = "";
+}
+imageCancelButton.addEventListener("click", resetImageForm);
+
+async function loadArchiveImages() {
+    const table = document.getElementById("imagesAdminTable");
+    table.innerHTML = "<tr><td colspan='3'>در حال دریافت تصاویر...</td></tr>";
+    const result = await db.from("archive_images")
+        .select("id,image_url,status,created_at")
+        .order("created_at", {ascending:false});
+    if (result.error) {
+        table.innerHTML = "<tr><td colspan='3'>خطا در دریافت تصاویر: " +
+            escapeAdminText(result.error.message) + "</td></tr>";
+        return;
+    }
+    const rows = result.data || [];
+    if (!rows.length) {
+        table.innerHTML = "<tr><td colspan='3'>هنوز تصویری ثبت نشده است.</td></tr>";
+        return;
+    }
+    table.replaceChildren();
+    rows.forEach(function(item) {
+        const tr = document.createElement("tr");
+        const urlCell = document.createElement("td");
+        const link = document.createElement("a");
+        link.href = item.image_url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = item.image_url;
+        link.style.cssText = "display:block;max-width:420px;overflow-wrap:anywhere;color:#158ffe;";
+        urlCell.appendChild(link);
+
+        const status = document.createElement("td");
+        status.textContent = item.status === "published" ? "منتشرشده" : "پیش‌نویس";
+
+        const actionsCell = document.createElement("td");
+        const actions = document.createElement("div");
+        actions.className = "media-row-actions";
+
+        const edit = document.createElement("button");
+        edit.className = "media-edit";
+        edit.textContent = "ویرایش";
+        edit.addEventListener("click", function() {
+            editingImageId = item.id;
+            document.getElementById("imageUrl").value = item.image_url || "";
+            document.getElementById("imageStatus").value = item.status || "draft";
+            document.getElementById("imageFormHeading").textContent = "ویرایش لینک تصویر";
+            imageSaveButton.textContent = "ذخیره تغییرات";
+            imageCancelButton.style.display = "inline-block";
+            imageMessage.textContent = "لینک تصویر یا وضعیت انتشار را تغییر بده.";
+            window.scrollTo({top:0, behavior:"smooth"});
+        });
+
+        const del = document.createElement("button");
+        del.className = "media-delete";
+        del.textContent = "حذف";
+        del.addEventListener("click", async function() {
+            if (!confirm("این تصویر از آرشیو حذف شود؟")) return;
+            const result = await db.from("archive_images").delete().eq("id", item.id);
+            if (result.error) {
+                alert("حذف تصویر ناموفق بود: " + result.error.message);
+                return;
+            }
+            if (editingImageId === item.id) resetImageForm();
+            loadArchiveImages();
+        });
+
+        actions.append(edit, del);
+        actionsCell.append(actions);
+        tr.append(urlCell, status, actionsCell);
+        table.append(tr);
+    });
+}
+
+imageForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const imageUrl = document.getElementById("imageUrl").value.trim();
+    if (!imageUrl) {
+        imageMessage.textContent = "لینک تصویر الزامی است.";
+        return;
+    }
+    try {
+        const parsed = new URL(imageUrl);
+        if (!["http:", "https:"].includes(parsed.protocol)) throw new Error("invalid");
+    } catch (_) {
+        imageMessage.textContent = "لینک تصویر معتبر نیست. آدرس کامل با https:// وارد کن.";
+        return;
+    }
+
+    imageSaveButton.disabled = true;
+    imageMessage.style.color = "#555";
+    imageMessage.textContent = "در حال ذخیره تصویر...";
+
+    // The existing table requires a title, so a neutral internal value is stored.
+    // The public gallery uses only image_url and does not display metadata.
+    const payload = {
+        title: "تصویر",
+        image_url: imageUrl,
+        category: null,
+        event_date: null,
+        location: null,
+        source: null,
+        description: null,
+        status: document.getElementById("imageStatus").value,
+        updated_at: new Date().toISOString()
+    };
+
+    const result = editingImageId
+        ? await db.from("archive_images").update(payload).eq("id", editingImageId)
+        : await db.from("archive_images").insert([payload]);
+
+    imageSaveButton.disabled = false;
+    if (result.error) {
+        imageMessage.style.color = "#d32f2f";
+        imageMessage.textContent = "ذخیره تصویر ناموفق بود: " + result.error.message;
+        return;
+    }
+
+    resetImageForm();
+    imageMessage.style.color = "#388e3c";
+    imageMessage.textContent = "تصویر با موفقیت ذخیره شد.";
+    await loadArchiveImages();
+});
+
+/* Archive videos management */
+let editingVideoId = null;
+const videoForm = document.getElementById("videoForm");
+const videoMessage = document.getElementById("videoMessage");
+const videoSaveButton = document.getElementById("videoSaveButton");
+const videoCancelButton = document.getElementById("videoCancelButton");
+
+function resetVideoForm() {
+    editingVideoId = null;
+    videoForm.reset();
+    document.getElementById("videoFormHeading").textContent = "ثبت ویدئوی جدید";
+    videoSaveButton.textContent = "ذخیره ویدئو";
+    videoCancelButton.style.display = "none";
+    videoMessage.textContent = "";
+}
+videoCancelButton.addEventListener("click", resetVideoForm);
+
+async function loadArchiveVideos() {
+    const table = document.getElementById("videosAdminTable");
+    table.innerHTML = "<tr><td colspan='5'>در حال دریافت ویدئوها...</td></tr>";
+    const result = await db.from("archive_videos")
+        .select("id,title,video_url,thumbnail_url,description,category,event_date,source,status,created_at")
+        .order("created_at", {ascending:false});
+    if (result.error) {
+        table.innerHTML = "<tr><td colspan='5'>خطا در دریافت ویدئوها: " +
+            escapeAdminText(result.error.message) + "</td></tr>";
+        return;
+    }
+    const rows = result.data || [];
+    if (!rows.length) {
+        table.innerHTML = "<tr><td colspan='5'>هنوز ویدئویی ثبت نشده است.</td></tr>";
+        return;
+    }
+    table.replaceChildren();
+    rows.forEach(function(item) {
+        const tr = document.createElement("tr");
+        const title = document.createElement("td"); title.textContent = item.title || "-";
+        const category = document.createElement("td"); category.textContent = item.category || "-";
+        const date = document.createElement("td"); date.textContent = item.event_date || "-";
+        const status = document.createElement("td"); status.textContent = item.status === "published" ? "منتشرشده" : "پیش‌نویس";
+        const actionsCell = document.createElement("td");
+        const actions = document.createElement("div"); actions.className = "media-row-actions";
+        const edit = document.createElement("button"); edit.className = "media-edit"; edit.textContent = "ویرایش";
+        edit.addEventListener("click", function() {
+            editingVideoId = item.id;
+            document.getElementById("videoTitle").value = item.title || "";
+            document.getElementById("videoUrl").value = item.video_url || "";
+            document.getElementById("videoThumbnail").value = item.thumbnail_url || "";
+            document.getElementById("videoCategory").value = item.category || "";
+            document.getElementById("videoDate").value = item.event_date || "";
+            document.getElementById("videoSource").value = item.source || "";
+            document.getElementById("videoDescription").value = item.description || "";
+            document.getElementById("videoStatus").value = item.status || "draft";
+            document.getElementById("videoFormHeading").textContent = "ویرایش ویدئو";
+            videoSaveButton.textContent = "ذخیره تغییرات";
+            videoCancelButton.style.display = "inline-block";
+            videoMessage.textContent = "اطلاعات ویدئو را ویرایش کن.";
+            window.scrollTo({top:0, behavior:"smooth"});
+        });
+        const del = document.createElement("button"); del.className = "media-delete"; del.textContent = "حذف";
+        del.addEventListener("click", async function() {
+            if (!confirm("این ویدئو از آرشیو حذف شود؟")) return;
+            const result = await db.from("archive_videos").delete().eq("id", item.id);
+            if (result.error) { alert("حذف ویدئو ناموفق بود: " + result.error.message); return; }
+            if (editingVideoId === item.id) resetVideoForm();
+            loadArchiveVideos();
+        });
+        actions.append(edit, del); actionsCell.append(actions);
+        tr.append(title, category, date, status, actionsCell); table.append(tr);
+    });
+}
+
+videoForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const title = document.getElementById("videoTitle").value.trim();
+    const videoUrl = document.getElementById("videoUrl").value.trim();
+    const thumbnailUrl = document.getElementById("videoThumbnail").value.trim();
+    if (!title || !videoUrl) { videoMessage.textContent = "عنوان و لینک ویدئو الزامی است."; return; }
+    function validHttpUrl(value) {
+        if (!value) return true;
+        try { const parsed = new URL(value); return ["http:", "https:"].includes(parsed.protocol); }
+        catch (_) { return false; }
+    }
+    if (!validHttpUrl(videoUrl) || !validHttpUrl(thumbnailUrl)) {
+        videoMessage.textContent = "لینک ویدئو یا تصویر پیش‌نمایش معتبر نیست.";
+        return;
+    }
+    videoSaveButton.disabled = true;
+    videoMessage.style.color = "#555";
+    videoMessage.textContent = "در حال ذخیره ویدئو...";
+    const payload = {
+        title: title,
+        video_url: videoUrl,
+        thumbnail_url: thumbnailUrl || null,
+        category: document.getElementById("videoCategory").value.trim() || null,
+        event_date: document.getElementById("videoDate").value.trim() || null,
+        source: document.getElementById("videoSource").value.trim() || null,
+        description: document.getElementById("videoDescription").value.trim() || null,
+        status: document.getElementById("videoStatus").value,
+        updated_at: new Date().toISOString()
+    };
+    const result = editingVideoId
+        ? await db.from("archive_videos").update(payload).eq("id", editingVideoId)
+        : await db.from("archive_videos").insert([payload]);
+    videoSaveButton.disabled = false;
+    if (result.error) {
+        videoMessage.style.color = "#d32f2f";
+        videoMessage.textContent = "ذخیره ویدئو ناموفق بود: " + result.error.message;
+        return;
+    }
+    resetVideoForm();
+    videoMessage.style.color = "#388e3c";
+    videoMessage.textContent = "ویدئو با موفقیت ذخیره شد.";
+    await loadArchiveVideos();
+});
+
+
+/* Initial Session Check */
+
+async function initialize() {
+
+    showLogin();
+
+    const { data, error } = await db.auth.getSession();
+
+    if (error) {
+
+        showLogin("خطا در بررسی وضعیت ورود.");
+
+        return;
+
+    }
+
+    if (data.session) {
+
+        await checkAdmin(data.session.user);
+
+    }
+
+}
+
+
+
+
+
+initialize();
+
+</script>
+</body>
+</html>
