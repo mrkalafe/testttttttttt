@@ -19,7 +19,7 @@ body {
     color: #242424;
 }
 
-/* Login */
+
 
 .login-screen {
     min-height: 100vh;
@@ -84,7 +84,7 @@ body {
     line-height: 1.8;
 }
 
-/* Dashboard */
+
 
 #app {
     display: none;
@@ -355,7 +355,7 @@ th {
 }
 
 
-/* Full articles management */
+
 #articlesAdminSection { display:none; }
 #articlesAdminSection .section {
     background:#fff; padding:22px; border-radius:12px; margin-top:20px;
@@ -386,7 +386,7 @@ th {
     .article-tools input,.article-tools select { width:100%; }
 }
 
-/* Discussion moderation */
+
 .admin-section { display:none; }
 .admin-section .section { background:#fff; padding:22px; border-radius:12px; margin-top:20px; overflow-x:auto; }
 .admin-section table { width:100%; border-collapse:collapse; min-width:760px; }
@@ -404,7 +404,7 @@ th {
 .admin-section .reply-delete { border:0; background:#fde7e7; color:#a32121; padding:5px 8px; border-radius:5px; cursor:pointer; margin-right:8px; }
 
 
-/* Royal quotes management */
+
 #quotesAdminSection { display:none; }
 #quotesAdminSection .section { background:#fff; padding:22px; border-radius:12px; margin-top:20px; }
 .quote-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
@@ -429,7 +429,7 @@ th {
 @media(max-width:650px) { .quote-form-grid { grid-template-columns:1fr; } .quote-form-grid .full { grid-column:auto; } }
 
 
-/* Royal books management */
+
 #booksAdminSection { display:none; }
 #booksAdminSection .section { background:#fff; padding:22px; border-radius:12px; margin-top:20px; }
 .book-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
@@ -456,7 +456,7 @@ th {
 @media(max-width:650px) { .book-form-grid {grid-template-columns:1fr;} .book-form-grid .full {grid-column:auto;} }
 
 
-/* Media archive management */
+
 .media-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
 .media-form-grid .full { grid-column:1/-1; }
 .media-form-grid input,.media-form-grid textarea,.media-form-grid select {
@@ -494,10 +494,51 @@ th {
 .contact-unread { color:#a32121; font-weight:800; }
 .contact-read { color:#388e3c; }
 
+
+#usersAdminSection,#settingsAdminSection{display:none}
+#usersAdminSection .section,#settingsAdminSection .section{background:#fff;padding:22px;border-radius:12px;margin-top:20px}
+.users-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.users-toolbar input,.users-toolbar select{min-width:180px;flex:1;padding:11px 13px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#17243a;font:inherit;font-size:13px}
+.users-table-wrap{overflow-x:auto}
+#usersAdminSection table{width:100%;min-width:850px;border-collapse:collapse}
+#usersAdminSection th,#usersAdminSection td{padding:12px 9px;border-bottom:1px solid #eee;text-align:right;vertical-align:middle;font-size:12px}
+.user-actions{display:flex;gap:6px;flex-wrap:wrap}
+.user-actions button{border:0;border-radius:6px;padding:8px 10px;cursor:pointer;font:inherit;font-size:11px}
+.user-details-btn{background:#e5f1fb;color:#155b89}
+.user-suspend-btn{background:#fde7e7;color:#a32121}
+.user-unsuspend-btn{background:#e8f5e9;color:#267b32}
+.users-message{font-size:12px;line-height:1.9;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.users-pagination{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px}
+.users-pagination button{border:0;border-radius:7px;padding:9px 14px;background:#17243a;color:#fff;cursor:pointer}
+.users-pagination button:disabled{opacity:.4;cursor:not-allowed}
+.users-pagination span{font-size:12px;color:#555}
+.user-details-panel{display:none;margin-top:18px;padding:16px;border:1px solid #e5e5e5;border-radius:9px;background:#fafafa;line-height:2;font-size:12px;overflow-wrap:anywhere}
+.user-details-panel pre{white-space:pre-wrap;direction:ltr;text-align:left;overflow-wrap:anywhere;font:12px/1.8 Tahoma,sans-serif}
+.settings-placeholder{padding:22px;border:1px dashed #d5d5d5;border-radius:10px;color:#777;line-height:2}
+
+#settingsAdminSection .settings-card{margin-top:16px}
+.settings-card-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.settings-card-heading h3{margin:0;color:#17243a;font-size:16px}
+.settings-card-heading span{font-size:12px;color:#777}
+.settings-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.settings-form-grid label,.settings-field{display:flex;flex-direction:column;gap:7px;font-size:13px;color:#344054}
+.settings-form-grid input,.settings-form-grid textarea,.settings-field textarea{width:100%;padding:11px 12px;border:1px solid #d9dee7;border-radius:8px;background:#fff;color:#17243a;font:inherit;font-size:13px;box-sizing:border-box}
+.settings-form-grid textarea,.settings-field textarea{resize:vertical;line-height:1.8}
+.settings-full{grid-column:1/-1}
+.settings-toggle-list{display:flex;flex-direction:column;gap:12px}
+.settings-toggle{display:flex;align-items:center;gap:10px;font-size:13px;color:#344054;cursor:pointer;margin:8px 0}
+.settings-toggle input{width:17px;height:17px;accent-color:#158ffe}
+.settings-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.settings-status{font-size:12px;line-height:1.8}
+.settings-warning{padding:10px 12px;background:#fff8e6;border-radius:8px;color:#805b00;font-size:12px;line-height:1.9;margin:12px 0}
+@media(max-width:650px){.settings-form-grid{grid-template-columns:1fr}.settings-full{grid-column:auto}.settings-card-heading{align-items:flex-start;flex-direction:column}}
+
+@media(max-width:650px){.users-toolbar{flex-direction:column}.users-toolbar input,.users-toolbar select{width:100%}}
+
 </style>
 </head>
 <body>
-<!-- Login Screen -->
+
 <div class="login-screen" id="loginScreen">
 <div class="login-box">
 <h2>آریامهر گرافی</h2>
@@ -512,7 +553,7 @@ th {
 <div class="login-error" id="loginError"></div>
 </div>
 </div>
-<!-- New Article Modal -->
+
 <div class="login-screen" id="articleModal" style="display:none; position:fixed; inset:0; z-index:1000; background:#17243acc;">
 <div class="login-box" style="max-width:650px; max-height:90vh; overflow-y:auto; text-align:right;">
 <h2>ایجاد مقاله جدید</h2>
@@ -538,7 +579,7 @@ th {
 </form>
 </div>
 </div>
-<!-- Admin Dashboard -->
+
 <div id="app">
 <aside class="sidebar">
 <div class="logo">
@@ -554,6 +595,8 @@ th {
 
 <a href="#" id="contactMessagesNav">✉ صندوق پیام‌ها</a>
 <a href="#" id="articlesNav">▤ مدیریت مقالات</a>
+<a href="#" id="usersNav">♙ مدیریت کاربران</a>
+<a href="#" id="settingsNav">⚙ تنظیمات</a>
 
 
 
@@ -797,11 +840,80 @@ th {
 </div>
 </div>
 </section>
+
+<section class="admin-section" id="usersAdminSection">
+<div class="section-header">
+<h3>مدیریت کاربران</h3>
+<button class="btn" id="refreshAdminUsers" type="button">به‌روزرسانی</button>
+</div>
+<div class="section">
+<div class="users-toolbar">
+<input id="adminUsersSearch" type="search" placeholder="جست‌وجو با نام کاربری یا نام نمایشی..." autocomplete="off"/>
+<select id="adminUsersStatus" aria-label="فیلتر وضعیت کاربران">
+<option value="all">همه کاربران</option>
+<option value="active">کاربران فعال</option>
+<option value="suspended">کاربران تعلیق‌شده</option>
+</select>
+</div>
+<div class="users-table-wrap">
+<table>
+<thead><tr><th>نام کاربری</th><th>نام نمایشی</th><th>تاریخ ثبت‌نام</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+<tbody id="adminUsersTable"><tr><td class="empty" colspan="5">برای دریافت کاربران، به‌روزرسانی را بزن.</td></tr></tbody>
+</table>
+</div>
+<div class="users-pagination">
+<button id="adminUsersPrev" type="button" disabled>صفحه قبل</button>
+<span id="adminUsersPageInfo">صفحه ۱</span>
+<button id="adminUsersNext" type="button" disabled>صفحه بعد</button>
+</div>
+<p class="users-message" id="adminUsersMessage" role="status"></p>
+<div class="user-details-panel" id="adminUserDetailsPanel">
+<div class="section-header">
+<strong>جزئیات کاربر</strong>
+<button class="btn" id="closeAdminUserDetails" type="button">بستن</button>
+</div>
+<pre id="adminUserDetailsContent"></pre>
+</div>
+</div>
+</section>
+<section class="admin-section" id="settingsAdminSection">
+<div class="section-header">
+<h3>تنظیمات سایت</h3>
+<button class="btn" id="refreshAdminSettings" type="button">بارگذاری مجدد</button>
+</div>
+
+<div class="section settings-card">
+<div class="settings-card-heading"><h3>تنظیمات عمومی</h3><span>اطلاعات پایه و هویت سایت</span></div>
+<div class="settings-form-grid">
+<label>نام سایت<input id="settingSiteName" type="text" maxlength="80" placeholder="نام سایت"></label>
+<label>نشانی لوگو<input id="settingLogoUrl" type="url" maxlength="1000" placeholder="https://example.com/logo.png" dir="ltr"></label>
+<label class="settings-full">توضیحات سایت<textarea id="settingSiteDescription" rows="3" maxlength="500" placeholder="توضیح کوتاه درباره سایت"></textarea></label>
+</div>
+<div class="settings-actions"><button class="btn" id="saveGeneralSettings" type="button">ذخیره تنظیمات عمومی</button><span class="settings-status" id="generalSettingsStatus" role="status"></span></div>
+</div>
+
+<div class="section settings-card">
+<div class="settings-card-heading"><h3>مدیریت عضویت</h3><span>کنترل امکان ساخت حساب جدید</span></div>
+<label class="settings-toggle"><input id="settingRegistrationEnabled" type="checkbox"><span>ثبت‌نام کاربران فعال باشد</span></label>
+<div class="settings-actions"><button class="btn" id="saveMembershipSettings" type="button">ذخیره وضعیت عضویت</button><span class="settings-status" id="membershipSettingsStatus" role="status"></span></div>
+</div>
+
+
+
+<div class="section settings-card">
+<div class="settings-card-heading"><h3>حالت تعمیر و نگهداری</h3><span>نمایش پیام تعمیر و نگهداری به کاربران</span></div>
+<label class="settings-toggle"><input id="settingMaintenanceEnabled" type="checkbox"><span>حالت تعمیر و نگهداری فعال باشد</span></label>
+<label class="settings-field">پیام نمایش‌داده‌شده به کاربران<textarea id="settingMaintenanceMessage" rows="3" maxlength="500"></textarea></label>
+<p class="settings-warning">توجه: فعال‌کردن این گزینه به‌تنهایی دسترسی کاربران عادی را مسدود نمی‌کند؛ اعمال محدودیت در سایت اصلی نیز باید پیاده‌سازی شود.</p>
+<div class="settings-actions"><button class="btn" id="saveMaintenanceSettings" type="button">ذخیره تنظیمات تعمیر و نگهداری</button><span class="settings-status" id="maintenanceSettingsStatus" role="status"></span></div>
+</div>
+</section>
+
 </main>
 </div>
 <script>
 
-/* Supabase Configuration */
+
 
 const SUPABASE_URL = "https://dtndnnogjrtufjezwety.supabase.co";
 
@@ -813,7 +925,7 @@ const db = supabase.createClient(
 );
 
 
-/* Elements */
+
 
 const loginScreen = document.getElementById("loginScreen");
 const loginForm = document.getElementById("loginForm");
@@ -822,7 +934,7 @@ const loginButton = document.getElementById("loginButton");
 const app = document.getElementById("app");
 
 
-/* Show Login */
+
 
 function showLogin(message = "") {
 
@@ -834,7 +946,7 @@ function showLogin(message = "") {
 }
 
 
-/* Show Dashboard */
+
 
 function showDashboard() {
 
@@ -844,7 +956,7 @@ function showDashboard() {
 }
 
 
-/* Check Admin Permission */
+
 
 async function checkAdmin(user) {
 
@@ -873,7 +985,7 @@ async function checkAdmin(user) {
 }
 
 
-/* Login */
+
 
 loginForm.addEventListener("submit", async function(event) {
 
@@ -907,7 +1019,7 @@ loginForm.addEventListener("submit", async function(event) {
 });
 
 
-/* Logout */
+
 
 document.getElementById("logoutButton").addEventListener("click", async function() {
 
@@ -918,7 +1030,7 @@ document.getElementById("logoutButton").addEventListener("click", async function
 });
 
 
-/* Dashboard Data */
+
 
 async function loadDashboard() {
 
@@ -961,7 +1073,7 @@ async function loadDashboard() {
 }
 
 
-/* Render Articles */
+
 
 function renderArticles(articles) {
 
@@ -1045,12 +1157,12 @@ function renderArticles(articles) {
     });
 }
 
-    /* Article Management */
+    
 
     let editingArticleId = null;
 
 
-/* Article Actions */
+
 
 document.getElementById("articlesTable").addEventListener("click", async function(event) {
 
@@ -1060,8 +1172,6 @@ document.getElementById("articlesTable").addEventListener("click", async functio
 
     const articleId = button.dataset.id;
     const action = button.dataset.action;
-
-    // Edit Article
 
     if (action === "edit") {
 
@@ -1093,9 +1203,6 @@ document.getElementById("articlesTable").addEventListener("click", async functio
         document.getElementById("articleModal").style.display = "flex";
 
     }
-
-
-    // Delete Article
 
     if (action === "delete") {
 
@@ -1129,40 +1236,24 @@ const articleForm = document.getElementById("articleForm");
 const articleMessage = document.getElementById("articleMessage");
 
 
-/* New Article Button */
+
 
 document.getElementById("newArticleButton").addEventListener("click", function() {
-
-    // خروج از حالت ویرایش
     editingArticleId = null;
-
-    // پاک کردن فرم
     articleForm.reset();
-
-    // پاک کردن پیام قبلی
     articleMessage.textContent = "";
-
-    // بازگرداندن متن دکمه ذخیره
     const saveButton = document.getElementById("saveArticleButton");
     saveButton.disabled = false;
     saveButton.textContent = "ذخیره مقاله";
-
-    // نمایش فرم
     articleModal.style.display = "flex";
 
 });
-
-
-// Close Article Form
 
 document.getElementById("closeArticleModal").addEventListener("click", function() {
 
     articleModal.style.display = "none";
 
 });
-
-
-// Save Article
 
 articleForm.addEventListener("submit", async function(event) {
 
@@ -1267,7 +1358,7 @@ articleForm.addEventListener("submit", async function(event) {
 
 
 
-/* Discussion moderation */
+
 const dashboardNav = document.getElementById("dashboardNav");
 const discussionNav = document.getElementById("discussionNav");
 const quotesNav = document.getElementById("quotesNav");
@@ -1284,38 +1375,58 @@ const welcomePanel = document.querySelector("#app main.main > .welcome");
 const dashboardCards = document.querySelector("#app main.main > .cards");
 
 function showAdminArea(which) {
-    const discussions = which === "discussions";
-    const quotes = which === "quotes";
-    const books = which === "books";
-    const articles = which === "articles";
-    const contactMessages = which === "contactMessages";
-    const dashboard = !discussions && !quotes && !books && !articles && !contactMessages;
+    const sectionMap = {
+        discussions: discussionAdminSection,
+        quotes: quotesAdminSection,
+        books: booksAdminSection,
+        articles: articlesAdminSection,
+        contactMessages: contactMessagesAdminSection,
+        users: document.getElementById("usersAdminSection"),
+        settings: document.getElementById("settingsAdminSection")
+    };
+    const navMap = {
+        dashboard: dashboardNav,
+        discussions: discussionNav,
+        quotes: quotesNav,
+        books: booksNav,
+        articles: articlesNav,
+        contactMessages: contactMessagesNav,
+        users: document.getElementById("usersNav"),
+        settings: document.getElementById("settingsNav")
+    };
+    const titleMap = {
+        dashboard: "داشبورد",
+        discussions: "مدیریت بحث‌ها",
+        quotes: "جملات شاهنشاه",
+        books: "کتاب‌های شاهنشاه",
+        articles: "مدیریت مقالات",
+        contactMessages: "صندوق پیام‌ها",
+        users: "مدیریت کاربران",
+        settings: "تنظیمات"
+    };
+    if (!titleMap[which]) which = "dashboard";
+    const dashboard = which === "dashboard";
 
     articlesDashboardSection.style.display = dashboard ? "block" : "none";
     welcomePanel.style.display = dashboard ? "block" : "none";
     dashboardCards.style.display = dashboard ? "grid" : "none";
-    discussionAdminSection.style.display = discussions ? "block" : "none";
-    quotesAdminSection.style.display = quotes ? "block" : "none";
-    booksAdminSection.style.display = books ? "block" : "none";
-    articlesAdminSection.style.display = articles ? "block" : "none";
-    contactMessagesAdminSection.style.display = contactMessages ? "block" : "none";
 
-    dashboardNav.classList.toggle("active", dashboard);
-    discussionNav.classList.toggle("active", discussions);
-    quotesNav.classList.toggle("active", quotes);
-    booksNav.classList.toggle("active", books);
-    articlesNav.classList.toggle("active", articles);
-    contactMessagesNav.classList.toggle("active", contactMessages);
+    Object.keys(sectionMap).forEach(function(key) {
+        if (sectionMap[key]) sectionMap[key].style.display = key === which ? "block" : "none";
+    });
+    Object.keys(navMap).forEach(function(key) {
+        if (navMap[key]) navMap[key].classList.toggle("active", key === which);
+    });
 
-    document.querySelector(".header h1").textContent =
-        discussions ? "مدیریت بحث‌ها" : quotes ? "جملات شاهنشاه" :
-        books ? "کتاب‌های شاهنشاه" : articles ? "مدیریت مقالات" : contactMessages ? "صندوق پیام‌ها" : "داشبورد";
+    document.querySelector(".header h1").textContent = titleMap[which];
 
-    if (discussions) loadAdminDiscussions();
-    if (quotes) loadRoyalQuotes();
-    if (books) loadRoyalBooks();
-    if (articles) loadAdminArticles();
-    if (contactMessages) loadContactMessages();
+    if (which === "discussions") loadAdminDiscussions();
+    if (which === "quotes") loadRoyalQuotes();
+    if (which === "books") loadRoyalBooks();
+    if (which === "articles") loadAdminArticles();
+    if (which === "contactMessages") loadContactMessages();
+    if (which === "users") loadAdminUsers();
+    if (which === "settings") loadAdminSettings();
 }
 dashboardNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("dashboard"); });
 discussionNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("discussions"); });
@@ -1323,13 +1434,114 @@ quotesNav.addEventListener("click", function(e) { e.preventDefault(); showAdminA
 booksNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("books"); });
 articlesNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("articles"); });
 contactMessagesNav.addEventListener("click", function(e) { e.preventDefault(); showAdminArea("contactMessages"); });
+document.getElementById("usersNav").addEventListener("click", function(e) { e.preventDefault(); showAdminArea("users"); });
+document.getElementById("settingsNav").addEventListener("click", function(e) { e.preventDefault(); showAdminArea("settings"); });
+
+document.getElementById("refreshAdminSettings").addEventListener("click", loadAdminSettings);
+
+function setSettingsStatus(id, message, isError = false) {
+    const element = document.getElementById(id);
+    element.textContent = message;
+    element.style.color = isError ? "#b42318" : "#267b32";
+}
+
+async function loadAdminSettings() {
+    const button = document.getElementById("refreshAdminSettings");
+    button.disabled = true;
+    setSettingsStatus("generalSettingsStatus", "در حال دریافت تنظیمات...");
+    try {
+        const { data, error } = await db.functions.invoke("account-manager", {
+            body: { action: "admin_settings_get" }
+        });
+        if (error) throw error;
+        if (!data || data.success !== true) {
+            throw new Error(data?.error || "دریافت تنظیمات ناموفق بود.");
+        }
+
+        const settings = data.settings || {};
+        const general = settings.general || {};
+        const membership = settings.membership || {};
+        const maintenance = settings.maintenance || {};
+
+        document.getElementById("settingSiteName").value = general.site_name || "";
+        document.getElementById("settingSiteDescription").value = general.site_description || "";
+        document.getElementById("settingLogoUrl").value = general.logo_url || "";
+        document.getElementById("settingRegistrationEnabled").checked = membership.registration_enabled !== false;
+        document.getElementById("settingMaintenanceEnabled").checked = maintenance.enabled === true;
+        document.getElementById("settingMaintenanceMessage").value = maintenance.message || "";
+
+        setSettingsStatus("generalSettingsStatus", "تنظیمات با موفقیت دریافت شد.");
+        setSettingsStatus("membershipSettingsStatus", "");
+        setSettingsStatus("maintenanceSettingsStatus", "");
+    } catch (error) {
+        console.error("Admin settings load failed:", error);
+        setSettingsStatus("generalSettingsStatus", error.message || "دریافت تنظیمات انجام نشد.", true);
+    } finally {
+        button.disabled = false;
+    }
+}
+
+async function saveAdminSetting(action, payload, statusId, buttonId) {
+    const button = document.getElementById(buttonId);
+    button.disabled = true;
+    setSettingsStatus(statusId, "در حال ذخیره...");
+    try {
+        const { data, error } = await db.functions.invoke("account-manager", {
+            body: { action, ...payload }
+        });
+        if (error) {
+            let detail = error.message || "خطا در ارتباط با سرور";
+            if (error.context instanceof Response) {
+                try {
+                    const responseText = await error.context.clone().text();
+                    if (responseText) {
+                        const parsed = JSON.parse(responseText);
+                        detail = parsed.error || responseText;
+                    }
+                } catch (_) {}
+            }
+            throw new Error(detail);
+        }
+        if (!data || data.success !== true) {
+            throw new Error(data?.error || "ذخیره تنظیمات ناموفق بود.");
+        }
+        setSettingsStatus(statusId, data.message || "با موفقیت ذخیره شد.");
+    } catch (error) {
+        console.error("Admin setting save failed:", action, error);
+        setSettingsStatus(statusId, error.message || "ذخیره تنظیمات انجام نشد.", true);
+    } finally {
+        button.disabled = false;
+    }
+}
+
+document.getElementById("saveGeneralSettings").addEventListener("click", function() {
+    saveAdminSetting("admin_settings_update", {
+        site_name: document.getElementById("settingSiteName").value,
+        site_description: document.getElementById("settingSiteDescription").value,
+        logo_url: document.getElementById("settingLogoUrl").value
+    }, "generalSettingsStatus", "saveGeneralSettings");
+});
+
+document.getElementById("saveMembershipSettings").addEventListener("click", function() {
+    saveAdminSetting("admin_membership_update", {
+        registration_enabled: document.getElementById("settingRegistrationEnabled").checked
+    }, "membershipSettingsStatus", "saveMembershipSettings");
+});
+
+document.getElementById("saveMaintenanceSettings").addEventListener("click", function() {
+    saveAdminSetting("admin_maintenance_update", {
+        enabled: document.getElementById("settingMaintenanceEnabled").checked,
+        message: document.getElementById("settingMaintenanceMessage").value
+    }, "maintenanceSettingsStatus", "saveMaintenanceSettings");
+});
+
 document.getElementById("refreshDiscussions").addEventListener("click", loadAdminDiscussions);
 document.getElementById("refreshQuotes").addEventListener("click", loadRoyalQuotes);
 document.getElementById("refreshBooks").addEventListener("click", loadRoyalBooks);
 document.getElementById("refreshContactMessages").addEventListener("click", loadContactMessages);
 
 
-/* Full articles management */
+
 let adminArticlesCache = [];
 
 function articleStatusLabel(status) {
@@ -1504,7 +1716,6 @@ async function loadAdminDiscussions() {
     table.innerHTML = "<tr><td colspan='5'>در حال دریافت بحث‌ها...</td></tr>";
 
     try {
-        // دریافت جداگانه اطلاعات برای جلوگیری از مشکل تشخیص رابطه‌های تو‌در‌توی Supabase
         const discussionsResult = await db.from("discussions")
             .select("id,name,title,body,category,created_at,is_pinned,is_closed")
             .order("is_pinned", {ascending:false})
@@ -1677,7 +1888,7 @@ function toggleAdminReplies(replies, host) {
 }
 
 
-/* Royal quotes management */
+
 let editingQuoteId = null;
 
 const quoteForm = document.getElementById("quoteForm");
@@ -1828,7 +2039,7 @@ quoteForm.addEventListener("submit", async function(event) {
 });
 
 
-/* Royal books management */
+
 let editingBookId = null;
 let editingBookPdfPath = null;
 
@@ -2004,7 +2215,9 @@ bookForm.addEventListener("submit", async function(event) {
 });
 
 
-/* Archive images management: URL-only */
+
+if (document.getElementById("imageForm") && document.getElementById("videoForm")) {
+
 let editingImageId = null;
 const imageForm = document.getElementById("imageForm");
 const imageMessage = document.getElementById("imageMessage");
@@ -2109,9 +2322,6 @@ imageForm.addEventListener("submit", async function(event) {
     imageSaveButton.disabled = true;
     imageMessage.style.color = "#555";
     imageMessage.textContent = "در حال ذخیره تصویر...";
-
-    // The existing table requires a title, so a neutral internal value is stored.
-    // The public gallery uses only image_url and does not display metadata.
     const payload = {
         title: "تصویر",
         image_url: imageUrl,
@@ -2141,7 +2351,7 @@ imageForm.addEventListener("submit", async function(event) {
     await loadArchiveImages();
 });
 
-/* Archive videos management */
+
 let editingVideoId = null;
 const videoForm = document.getElementById("videoForm");
 const videoMessage = document.getElementById("videoMessage");
@@ -2258,7 +2468,251 @@ videoForm.addEventListener("submit", async function(event) {
 });
 
 
-/* Initial Session Check */
+
+}
+
+let adminUsersCurrentPage = 1;
+const adminUsersPageSize = 20;
+let adminUsersTotalPages = 1;
+let adminUsersSearchTimer = null;
+let adminUsersRequestNumber = 0;
+
+function setAdminUsersMessage(message, isError) {
+    const element = document.getElementById("adminUsersMessage");
+    element.textContent = message || "";
+    element.style.color = isError ? "#b3261e" : "#388e3c";
+}
+
+function escapeAdminUserText(value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function(character) {
+        return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character];
+    });
+}
+
+function formatAdminUserDate(value) {
+    if (!value) return "—";
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? "—" : date.toLocaleDateString("fa-IR");
+}
+
+async function callAccountManager(action, values) {
+    const body = Object.assign({action: action}, values || {});
+    const result = await db.functions.invoke("account-manager", {body: body});
+    if (result.error) {
+        let message = result.error.message || "ارتباط با سرویس مدیریت کاربران ناموفق بود.";
+        if (result.data && result.data.error) message = result.data.error;
+        throw new Error(message);
+    }
+    const payload = result.data || {};
+    if (payload.success === false || payload.ok === false || payload.error) {
+        throw new Error(payload.error || payload.message || "درخواست توسط سرور انجام نشد.");
+    }
+    return payload;
+}
+
+function updateAdminUsersPagination(pagination) {
+    const page = Number(pagination && pagination.page) || adminUsersCurrentPage;
+    const totalPages = Number(pagination && pagination.total_pages) || 1;
+    const total = Number(pagination && pagination.total);
+    adminUsersCurrentPage = page;
+    adminUsersTotalPages = Math.max(1, totalPages);
+    document.getElementById("adminUsersPageInfo").textContent =
+        "صفحه " + page.toLocaleString("fa-IR") + " از " +
+        adminUsersTotalPages.toLocaleString("fa-IR") +
+        (Number.isFinite(total) ? " | " + total.toLocaleString("fa-IR") + " کاربر" : "");
+    document.getElementById("adminUsersPrev").disabled = page <= 1;
+    document.getElementById("adminUsersNext").disabled = page >= adminUsersTotalPages;
+}
+
+function renderAdminUsers(users) {
+    const table = document.getElementById("adminUsersTable");
+    const statusFilter = document.getElementById("adminUsersStatus").value;
+    const filtered = (users || []).filter(function(user) {
+        const suspended = user.is_suspended === true;
+        return statusFilter === "all" ||
+            (statusFilter === "suspended" && suspended) ||
+            (statusFilter === "active" && !suspended);
+    });
+
+    table.replaceChildren();
+    if (!filtered.length) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 5;
+        cell.className = "empty";
+        cell.textContent = users && users.length
+            ? "کاربری با این فیلتر پیدا نشد."
+            : "کاربری برای نمایش وجود ندارد.";
+        row.appendChild(cell);
+        table.appendChild(row);
+        return;
+    }
+
+    filtered.forEach(function(user) {
+        const userId = user.user_id;
+        const row = document.createElement("tr");
+        const username = document.createElement("td");
+        username.textContent = user.username || "—";
+        const displayName = document.createElement("td");
+        displayName.textContent = user.display_name || "—";
+        const createdAt = document.createElement("td");
+        createdAt.textContent = formatAdminUserDate(user.created_at);
+        const status = document.createElement("td");
+        const badge = document.createElement("span");
+        badge.className = "status" + (user.is_suspended ? " draft" : "");
+        badge.textContent = user.is_suspended ? "تعلیق‌شده" : "فعال";
+        status.appendChild(badge);
+
+        const actionsCell = document.createElement("td");
+        const actions = document.createElement("div");
+        actions.className = "user-actions";
+
+        const detailsButton = document.createElement("button");
+        detailsButton.type = "button";
+        detailsButton.className = "user-details-btn";
+        detailsButton.textContent = "جزئیات";
+        detailsButton.dataset.userAction = "details";
+        detailsButton.dataset.userId = userId || "";
+
+        const statusButton = document.createElement("button");
+        statusButton.type = "button";
+        statusButton.className = user.is_suspended ? "user-unsuspend-btn" : "user-suspend-btn";
+        statusButton.textContent = user.is_suspended ? "رفع تعلیق" : "تعلیق کاربر";
+        statusButton.dataset.userAction = user.is_suspended ? "unsuspend" : "suspend";
+        statusButton.dataset.userId = userId || "";
+
+        actions.append(detailsButton, statusButton);
+        actionsCell.appendChild(actions);
+        row.append(username, displayName, createdAt, status, actionsCell);
+        table.appendChild(row);
+    });
+}
+
+async function loadAdminUsers() {
+    const requestNumber = ++adminUsersRequestNumber;
+    const refreshButton = document.getElementById("refreshAdminUsers");
+    const table = document.getElementById("adminUsersTable");
+    const search = document.getElementById("adminUsersSearch").value.trim();
+
+    refreshButton.disabled = true;
+    refreshButton.textContent = "در حال دریافت...";
+    setAdminUsersMessage("", false);
+    table.innerHTML = '<tr><td class="empty" colspan="5">در حال دریافت کاربران...</td></tr>';
+
+    try {
+        const payload = await callAccountManager("admin_users_list", {
+            page: adminUsersCurrentPage,
+            limit: adminUsersPageSize,
+            search: search
+        });
+        if (requestNumber !== adminUsersRequestNumber) return;
+        const users = Array.isArray(payload.users) ? payload.users : [];
+        renderAdminUsers(users);
+        updateAdminUsersPagination(payload.pagination || {});
+        const total = payload.pagination && Number(payload.pagination.total);
+        setAdminUsersMessage(
+            Number.isFinite(total)
+                ? "تعداد کاربران: " + total.toLocaleString("fa-IR")
+                : "فهرست کاربران دریافت شد.",
+            false
+        );
+    } catch (error) {
+        if (requestNumber !== adminUsersRequestNumber) return;
+        console.error("account-manager admin_users_list:", error);
+        table.innerHTML = '<tr><td class="empty" colspan="5">دریافت فهرست کاربران ناموفق بود.</td></tr>';
+        setAdminUsersMessage(error.message, true);
+    } finally {
+        if (requestNumber === adminUsersRequestNumber) {
+            refreshButton.disabled = false;
+            refreshButton.textContent = "به‌روزرسانی";
+        }
+    }
+}
+
+async function showAdminUserDetails(userId) {
+    const panel = document.getElementById("adminUserDetailsPanel");
+    const content = document.getElementById("adminUserDetailsContent");
+    panel.style.display = "block";
+    content.textContent = "در حال دریافت جزئیات کاربر...";
+    try {
+        const payload = await callAccountManager("admin_user_details", {user_id: userId});
+        const user = payload.user || {};
+        content.textContent = JSON.stringify(user, null, 2);
+        panel.scrollIntoView({behavior:"smooth", block:"nearest"});
+    } catch (error) {
+        content.textContent = "دریافت جزئیات کاربر ناموفق بود:\n" + error.message;
+        setAdminUsersMessage(error.message, true);
+    }
+}
+
+async function changeAdminUserStatus(userId, suspend) {
+    const prompt = suspend
+        ? "آیا از تعلیق این حساب کاربری مطمئن هستی؟"
+        : "آیا می‌خواهی تعلیق این حساب برداشته شود؟";
+    if (!confirm(prompt)) return;
+
+    setAdminUsersMessage("در حال ثبت تغییر وضعیت کاربر...", false);
+    try {
+        await callAccountManager(
+            suspend ? "admin_user_suspend" : "admin_user_unsuspend",
+            {user_id: userId}
+        );
+        setAdminUsersMessage(
+            suspend ? "حساب کاربر با موفقیت تعلیق شد." : "تعلیق حساب کاربر برداشته شد.",
+            false
+        );
+        await loadAdminUsers();
+    } catch (error) {
+        console.error("account-manager user status:", error);
+        setAdminUsersMessage(error.message, true);
+    }
+}
+
+document.getElementById("refreshAdminUsers").addEventListener("click", function() {
+    loadAdminUsers();
+});
+document.getElementById("adminUsersSearch").addEventListener("input", function() {
+    clearTimeout(adminUsersSearchTimer);
+    adminUsersSearchTimer = setTimeout(function() {
+        adminUsersCurrentPage = 1;
+        loadAdminUsers();
+    }, 350);
+});
+document.getElementById("adminUsersStatus").addEventListener("change", function() {
+    renderAdminUsers([]);
+    loadAdminUsers();
+});
+document.getElementById("adminUsersPrev").addEventListener("click", function() {
+    if (adminUsersCurrentPage > 1) {
+        adminUsersCurrentPage--;
+        loadAdminUsers();
+    }
+});
+document.getElementById("adminUsersNext").addEventListener("click", function() {
+    if (adminUsersCurrentPage < adminUsersTotalPages) {
+        adminUsersCurrentPage++;
+        loadAdminUsers();
+    }
+});
+document.getElementById("closeAdminUserDetails").addEventListener("click", function() {
+    document.getElementById("adminUserDetailsPanel").style.display = "none";
+});
+document.getElementById("adminUsersTable").addEventListener("click", function(event) {
+    const button = event.target.closest("button[data-user-action]");
+    if (!button) return;
+    const userId = button.dataset.userId;
+    if (!userId) {
+        setAdminUsersMessage("شناسه کاربر در پاسخ سرویس وجود ندارد.", true);
+        return;
+    }
+    if (button.dataset.userAction === "details") {
+        showAdminUserDetails(userId);
+    } else {
+        changeAdminUserStatus(userId, button.dataset.userAction === "suspend");
+    }
+});
+
+
 
 async function initialize() {
 
